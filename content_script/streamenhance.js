@@ -7,7 +7,7 @@
 
 "use strict";
 
-var settings;
+var settings, flexCss;
 
 var disableNico = function(){
 	window.location = "javascript:textSwitch();";
@@ -67,6 +67,8 @@ var checkOptions = function(){
 	if(settings.nicoGuest){
 		injectPageScript("nico_guest.js");
 	}
+	flexCss = $("<style>").appendTo("head");
+	updateFlex();
 };
 
 // https://stackoverflow.com/questions/986937/how-can-i-get-the-browsers-scrollbar-sizes
@@ -159,23 +161,25 @@ var setupChat = function(){
 
 var createMenu = function(){
 	var menu = $("<div id=\"liveenh-menu\">").hide();
-	$("<a id=\"liveenh-btn\" class=\"btn btn-sm btn-warning\" title=\"MyLive Enhancement menu\">L+</a>")
+	$("<a class=\"btn btn-sm btn-info liveenh-fs liveenh-btn\">+</a>")
+		.click(function(){
+			settings.fullscreen_flex = Math.min(settings.fullscreen_flex - 1, 10);
+			updateFlex();
+		})
+		.insertAfter("#favlink");
+	$("<a class=\"btn btn-sm btn-info liveenh-fs liveenh-btn\">-</a>")
+		.click(function(){
+			settings.fullscreen_flex = Math.max(settings.fullscreen_flex + 1, 1);
+			updateFlex();
+		})
+		.insertAfter("#favlink");
+	$("<a class=\"btn btn-sm btn-warning liveenh-btn\" title=\"MyLive Enhancement menu\">L+</a>")
 		.click(function(){
 			menu.toggle(500);
 		})
 		.insertAfter("#favlink");
 
 	$("<a target=\"_blank\">Settings</a>").attr("href", chrome.extension.getURL("settings/settings.html")).appendTo(menu);
-
-	var hideBot = $("<a href=\"#\">Hide bot</a>").click(function(){
-		$(document.body).toggleClass("hidebot");
-		$(this).toggleClass("active");
-		return false;
-	}).appendTo(menu);
-
-	if(settings.hideBot){
-		hideBot.click();
-	}
 
 	menu.appendTo($("#favlink").closest(".panel-title"));
 };
@@ -205,10 +209,13 @@ var createVideoOption = function(){
 				}
 			};
 		};
-		$("<button class=\"btn btn-sm btn-default\"><i class=\"glyphicon glyphicon-fullscreen\"></i> + Nico</button>").click(fullScreen("#playerbox")).appendTo(menu);
-		$("<button class=\"btn btn-sm btn-default full-chat\"><i class=\"glyphicon glyphicon-fullscreen\"></i> + Chat</button>").click(fullScreen("#liveenh-video-chat")).appendTo(menu);
+		$("<button class=\"btn btn-sm btn-default full-chat\"><i class=\"glyphicon glyphicon-fullscreen\"></i></button>").click(fullScreen("#liveenh-video-chat")).appendTo(menu);
 	}
 	$("#playerbox").append(menu);
+};
+
+var updateFlex = function(){
+	flexCss.html(":-webkit-full-screen #col-xs-9{flex: " + parseInt(settings.fullscreen_flex, 10) + ";}");
 };
 
 var setup = function(){

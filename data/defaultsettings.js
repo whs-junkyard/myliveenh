@@ -14,5 +14,6 @@ var defaultSettings = {
 	notifySound: false,
 	enableMenu: false,
 	chatBg: "default",
-	nicoGuest: false
+	nicoGuest: false,
+	fullscreen_flex: 5
 };

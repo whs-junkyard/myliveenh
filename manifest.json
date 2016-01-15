@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "MyLive Enhancements",
-	"version": "1.5.2",
+	"version": "1.6.0",
 	"description": "Enhancements to MyLive.in.th",
 	"icons": {
 		"128": "data/icon.png"
