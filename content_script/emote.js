@@ -7,7 +7,8 @@
 
 "use strict";
 
-var settings, kappaDB;
+var settings, kappaEmotes = [];
+var kappaBase = "//static-cdn.jtvnw.net/emoticons/v1/{image_id}/1.0";
 
 var siteEmoteMap = {
 	":)": "/assets/emoji/smile.svg",
@@ -80,13 +81,13 @@ var buildEmoteList = function(el){
 	if(settings.twitchEmotes || settings.nicoEmotes){
 		$("<p><strong>Twitch emotes</strong> (only MyLive Enhancements user will see)</p>").appendTo(el);
 		container = $("<div>").appendTo(el);
-		keys = Object.keys(kappaDB);
+		keys = Object.keys(kappaEmotes);
 		for(var i = 0; i < keys.length; i++){
 			var name = keys[i];
-			var data = kappaDB[name];
+			var url = kappaBase.replace(/\{image_id\}/g, kappaEmotes[name].image_id);
 			$("<img>").attr({
-				"title": name + " - " + data.description,
-				"src": data.url,
+				"title": name,
+				"src": url,
 				"data-code": name
 			}).appendTo(container);
 		}
@@ -117,8 +118,8 @@ var createEmotePicker = function(){
 };
 
 var setup = function(){
-	$.getJSON(chrome.extension.getURL("data/global.json")).then(function(data){
-		kappaDB = data;
+	$.getJSON("http://twitchemotes.com/api_cache/v2/global.json").then(function(data){
+		Object.assign(kappaEmotes, data.emotes);
 
 		$("#chatlogging").bind("DOMNodeInserted", function(ev){
 			handleNode(ev.target);

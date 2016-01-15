@@ -7,15 +7,16 @@
 
 "use strict";
 
-var kappaDB, kappaKey, settings;
+var kappaEmotes = {}, settings, kappaBase = "//static-cdn.jtvnw.net/emoticons/v1/{image_id}/1.0";
 var cache = [];
 
 var replaceKappa = function(node){
 	var replaceEmote = function(emote){
 		var html = node.html();
+		var url = kappaBase.replace(/\{image_id\}/g, kappaEmotes[emote].image_id);
 		var newHTML = html.replace(
 			new RegExp("(^|\\s+)"+emote+"(\\s+|$)", "g"),
-			"$1<span class=\"liveenh-emote\" title=\""+emote+"\"><img src=\""+kappaDB[emote].url+"\" alt=\""+emote+"\" title=\""+emote+"\"></span>$2"
+			"$1<span class=\"liveenh-emote\" title=\""+emote+"\"><img src=\"" + url + "\" alt=\""+emote+"\" title=\""+emote+"\"></span>$2"
 		);
 		if(newHTML != html){
 			node.html(newHTML);
@@ -31,7 +32,7 @@ var replaceKappa = function(node){
 		}
 		node.html(txt);
 	}else{
-		kappaKey.forEach(replaceEmote);
+		Object.keys(kappaEmotes).forEach(replaceEmote);
 		cache = [origHtml, node.html().replace(/^\s*:\s*/, "")];
 	}
 	return node;
@@ -62,9 +63,8 @@ var handleNode = function(node){
 };
 
 var setup = function(){
-	$.getJSON(chrome.extension.getURL("data/global.json")).then(function(data){
-		kappaDB = data;
-		kappaKey = Object.keys(kappaDB);
+	$.getJSON("http://twitchemotes.com/api_cache/v2/global.json").then(function(data){
+		Object.assign(kappaEmotes, data.emotes);
 		if(settings.twitchEmotes){
 			$("#chatlogging").bind("DOMNodeInserted", function(ev){
 				handleNode(ev.target);
@@ -80,6 +80,16 @@ var setup = function(){
 			});
 		}
 	});
+	if(settings.twitchSubEmotes){
+		$.getJSON("http://twitchemotes.com/api_cache/v2/subscriber.json").then(function(data){
+			Object.keys(data.channels).forEach(function(channel){
+				var detail = data.channels[channel];
+				detail.emotes.forEach(function(item){
+					kappaEmotes[item.code] = {"image_id": item.image_id};
+				})
+			});
+		});
+	}
 };
 
 chrome.storage.sync.get("settings", function(data){

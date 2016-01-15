@@ -15,5 +15,6 @@ var defaultSettings = {
 	enableMenu: false,
 	chatBg: "default",
 	nicoGuest: false,
-	fullscreen_flex: 5
+	fullscreen_flex: 5,
+	twitchSubEmotes: false
 };

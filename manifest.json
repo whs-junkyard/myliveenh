@@ -50,8 +50,8 @@
 		"persistent": false
 	},
 	"permissions": [
-		"http://twitchemotes.com/global.json",
-		"http://twitchemotes.com/subscriber.json",
+		"http://twitchemotes.com/*",
+		"https://twitchemotes.com/*",
 		"http://mylive.in.th/*",
 		"storage",
 		"alarms",
@@ -60,7 +60,6 @@
 	"options_page": "settings/settings.html",
 	"web_accessible_resources": [
 		"settings/settings.html",
-		"data/global.json",
 		"page_script/nico_guest.js"
 	]
 }
