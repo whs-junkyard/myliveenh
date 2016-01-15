@@ -1,0 +1,144 @@
+#liveenh-btn{
+	padding: 0px 5px;
+	margin-left: 5px;
+}
+#liveenh-menu{
+	margin-top: 5px;
+	font-size: 8pt;
+}
+#liveenh-menu a{
+	color: white;
+	margin-left: 5px;
+	text-decoration: none;
+}
+#liveenh-menu a.active{
+	color: #aaffaa;
+}
+.panel-heading{
+	height: auto !important;
+	padding: 7px 10px !important;
+	margin-left: -1px;
+	margin-right: -1px;
+}
+.panel-heading h5{
+	margin-bottom: 0;
+}
+
+.panel-body2{
+	height: 319px !important;
+}
+
+.hidebot .chat-bot{
+	display: none;
+}
+
+.liveenh-unfixtop #wrap > .container{
+	padding-top: 0;
+}
+.liveenh-unfixtop .navbar{
+	margin-bottom: 0;
+}
+
+.liveenh-hidetimer.liveenh-role-viewer .countdownclock{
+	display: none;
+}
+
+.liveenh-hidetimer-broadcaster.liveenh-role-streamer .countdownclock{
+	display: none;
+}
+
+.liveenh-hidetimer.liveenh-role-viewer .panel-body2, .liveenh-hidetimer-broadcaster.liveenh-role-streamer .panel-body2{
+	height: 368px !important;
+}
+
+#footer{
+	overflow: hidden;
+}
+
+#liveenh-playermenu{
+	display: none;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	font-family: sans-serif;
+}
+#liveenh-playermenu .btn{
+	margin-right: 10px;
+	padding: 3px 5px;
+}
+
+#playerbox:hover #liveenh-playermenu{
+	display: block;
+}
+
+#col-xs-12 .full-chat{
+	display: none;
+}
+
+:-webkit-full-screen #liveenh-playermenu, :-webkit-full-screen #n2l{
+	display: none !important;
+}
+
+:-webkit-full-screen, :-webkit-full-screen #playerbox {
+	position: fixed;
+	top: 0; left: 0;
+	width: 100%;
+	height: 100%;
+	background: black;
+}
+:-webkit-full-screen #myVideo_wrapper{
+	height: 100% !important;
+}
+:-webkit-full-screen #col-xs-9 #playerbox{
+	width: 85%;
+}
+:-webkit-full-screen #chat_1{
+	width: 15% !important;
+	height: 100%;
+	left: auto !important;
+	right: 0;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+:-webkit-full-screen #chat_1 .panel-body2{
+	height: 768px !important;
+}
+
+#chatlogging .liveenh-emote[title]{
+	position: relative;
+}
+#chatlogging .liveenh-emote[title]:hover::after{
+	display: block;
+	content: attr(title);
+	background: #222;
+	color: white;
+	padding: 3px 8px;
+	font-size: 9pt;
+	position: absolute;
+	top: 28px;
+	left: 0px;
+	z-index: 10000;
+}
+
+#chat_body1{
+	position: relative;
+}
+#emotePicker{
+	background: cornflowerblue;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 100%;
+	color: white;
+	padding: 10px;
+	opacity: 0.9;
+	text-shadow: black 0px 1px 0px;
+}
+#emotePicker div{
+	margin-bottom: 20px;
+}
+#emotePicker img{
+	cursor: pointer;
+	margin: 2px;
+}

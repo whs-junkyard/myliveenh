@@ -1,0 +1,15 @@
+.chat-theme-chroma .panel-body2, .chat-theme-chroma-black .panel-body2{
+	background: #00ff00;
+}
+
+.chat-theme-black .panel-body2{
+	background: #000;
+}
+
+.chat-theme-black .panel-body2, .chat-theme-chroma-black .panel-body2{
+	color: white;
+}
+
+.chat-theme-black .panel-body2 strong a, .chat-theme-chroma-black .panel-body2 strong a{
+	color: #888 !important;
+}

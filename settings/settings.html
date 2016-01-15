@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myliveenh" ng-csp>
+<head>
+	<meta charset="UTF-8">
+	<title>MyLive Enhancement settings</title>
+	<link rel="stylesheet" href="/lib/bootstrap.min.css">
+	<link rel="stylesheet" href="/lib/angular-csp.css">
+</head>
+<body>
+
+<div class="container" ng-controller="Settings">
+	<h1>MyLive Enhancement settings</h1>
+
+	<div class="alert alert-success" ng-show="saved">Settings will take effect after page refresh.</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Features</h3>
+				</div>
+				<div class="panel-body">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.enableMenu">
+							Enable extra player menu
+						</label>
+						<div class="help-block">
+							Enable full screen with chat menu accessible by hovering over player
+						</div>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.autoFollow">
+							Automatically follow stream recreation
+						</label>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-3">
+								<input id="notifyFollow" class="form-control" type="number" min="0" ng-model="settings.notifyFollow">
+							</div>
+							<label for="notifyFollow" class="col-xs-9">
+								Notify when following users start live
+							</label>
+						</div>
+						<div class="help-block">Enter refresh rate in minutes. 0 to disable.</div>
+						<div class="text-danger">Must stay logged in to mylive.in.th <strong>(without www)</strong> to work.</div>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.notifyByUser" ng-disabled="settings.notifyFollow == 0">
+							Do not notify of stream recreation
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.notifySound" ng-disabled="settings.notifyFollow == 0">
+							Use notification sound
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Chat</h3>
+				</div>
+				<div class="panel-body">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.disableNico">
+							Disable Nicochat (scroller) by default
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.twitchEmotes">
+							Enable Twitch chat emotes <img src="kreygasm.png" alt="Kreygasm">
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.nicoEmotes">
+							Enable Twitch chat emotes on Nicochat (scroller)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.nicoGuest">
+							Enable guest chat on Nicochat (scroller)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.disableEmote">
+							Disable site emotes
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.hideBot">
+							Hide Mylive Bot by default
+						</label>
+					</div>
+					<label for="chatBg">Chat background color</label>
+					<select ng-model="settings.chatBg" id="chatBg" class="form-control">
+						<option value="default">Default</option>
+						<option value="chroma">Green (Chroma Key)</option>
+						<option value="chroma-black">Green-Black (Chroma Key)</option>
+						<option value="black">Black</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Interface</h3>
+				</div>
+				<div class="panel-body">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.hideTimer">
+							Hide broadcast timer (for viewer)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.hideTimerBroadcaster">
+							Hide broadcast timer (for broadcaster in stream page)
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.autoMax">
+							Maximize player by default
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.edgeless">
+							Full-width player when maximizing player
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="settings.unfixtop">
+							Disable floating of top menu
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<input type="submit" class="btn btn-primary btn-lg" value="Save" ng-click="save()">
+
+	<div style="margin-top: 20px">
+		<input type="button" class="btn btn-danger btn-sm" value="Factory reset" ng-click="reset()">
+	</div>
+
+</div>
+
+<script src="/lib/angular.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script src="/data/defaultsettings.js"></script>
+<script src="settings.js"></script>
+
+</body>
+</html>

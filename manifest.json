@@ -1,0 +1,66 @@
+{
+	"manifest_version": 2,
+	"name": "MyLive Enhancements",
+	"version": "1.5.2",
+	"description": "Enhancements to MyLive.in.th",
+	"icons": {
+		"128": "data/icon.png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["http://*.mylive.in.th/streams/*"],
+			"js": [
+				"lib/jquery.js",
+				"lib/jquery.caret.js",
+				"lib/lodash.min.js",
+				"data/defaultsettings.js",
+				"content_script/kappa.js",
+				"content_script/emote.js",
+				"content_script/chatbg.js",
+				"content_script/streamenhance.js"
+			],
+			"css": [
+				"content_script/streamenhance.css",
+				"content_script/chatbg.css"
+			]
+		},
+		{
+			"matches": ["http://*.mylive.in.th/chat/*"],
+			"js": [
+				"lib/jquery.js",
+				"lib/jquery.caret.js",
+				"lib/lodash.min.js",
+				"data/defaultsettings.js",
+				"content_script/kappa.js",
+				"content_script/emote.js",
+				"content_script/chatbg.js"
+			],
+			"css": [
+				"content_script/chatbg.css"
+			]
+		}
+	],
+	"background": {
+		"scripts": [
+			"lib/jquery.js",
+			"lib/lodash.min.js",
+			"data/defaultsettings.js",
+			"background/notify.js"
+		],
+		"persistent": false
+	},
+	"permissions": [
+		"http://twitchemotes.com/global.json",
+		"http://twitchemotes.com/subscriber.json",
+		"http://mylive.in.th/*",
+		"storage",
+		"alarms",
+		"notifications"
+	],
+	"options_page": "settings/settings.html",
+	"web_accessible_resources": [
+		"settings/settings.html",
+		"data/global.json",
+		"page_script/nico_guest.js"
+	]
+}
