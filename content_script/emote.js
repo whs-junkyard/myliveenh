@@ -7,8 +7,7 @@
 
 "use strict";
 
-var settings, kappaEmotes = [];
-var kappaBase = "//static-cdn.jtvnw.net/emoticons/v1/{image_id}/1.0";
+var settings;
 
 var siteEmoteMap = {
 	":)": "/assets/emoji/smile.svg",
@@ -77,23 +76,6 @@ var buildEmoteList = function(el){
 			"data-code": name
 		}).css("height", "32px").appendTo(container);
 	}
-
-	if(settings.twitchEmotes || settings.nicoEmotes){
-		$("<p><strong>Twitch emotes</strong> (only MyLive Enhancements user will see)</p>").appendTo(el);
-		container = $("<div>").appendTo(el);
-		keys = Object.keys(kappaEmotes);
-		for(var i = 0; i < keys.length; i++){
-			var name = keys[i];
-			var url = kappaBase.replace(/\{image_id\}/g, kappaEmotes[name].image_id);
-			$("<img>").attr({
-				"title": name,
-				"src": url,
-				"data-code": name
-			}).appendTo(container);
-		}
-	}else{
-		$("<p>Enable Twitch emotes in settings to unlock more emotes</p>").appendTo(el);
-	}
 };
 
 var createEmotePicker = function(){
@@ -118,17 +100,13 @@ var createEmotePicker = function(){
 };
 
 var setup = function(){
-	$.getJSON("http://twitchemotes.com/api_cache/v2/global.json").then(function(data){
-		Object.assign(kappaEmotes, data.emotes);
-
-		$("#chatlogging").bind("DOMNodeInserted", function(ev){
-			handleNode(ev.target);
-		}).find("li").each(function(){
-			handleNode(this);
-		});
-
-		createEmotePicker();
+	$("#chatlogging").bind("DOMNodeInserted", function(ev){
+		handleNode(ev.target);
+	}).find("li").each(function(){
+		handleNode(this);
 	});
+
+	createEmotePicker();
 };
 
 chrome.storage.sync.get("settings", function(data){

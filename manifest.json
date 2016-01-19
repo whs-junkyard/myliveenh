@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "MyLive Enhancements",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"description": "Enhancements to MyLive.in.th",
 	"icons": {
 		"128": "data/icon.png"
@@ -14,7 +14,6 @@
 				"lib/jquery.caret.js",
 				"lib/lodash.min.js",
 				"data/defaultsettings.js",
-				"content_script/kappa.js",
 				"content_script/emote.js",
 				"content_script/chatbg.js",
 				"content_script/streamenhance.js"
@@ -31,7 +30,6 @@
 				"lib/jquery.caret.js",
 				"lib/lodash.min.js",
 				"data/defaultsettings.js",
-				"content_script/kappa.js",
 				"content_script/emote.js",
 				"content_script/chatbg.js"
 			],
@@ -50,8 +48,6 @@
 		"persistent": false
 	},
 	"permissions": [
-		"http://twitchemotes.com/*",
-		"https://twitchemotes.com/*",
 		"http://mylive.in.th/*",
 		"storage",
 		"alarms",
