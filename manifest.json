@@ -1,0 +1,29 @@
+{
+	"manifest_version": 2,
+	"name": "MyLive Enhancements 2",
+	"version": "2.0.0",
+	"description": "Enhancements to MyLive.in.th",
+	"icons": {
+		"128": "data/icon.png"
+	},
+	"content_scripts": [
+	],
+	"background": {
+		"scripts": [
+			"data/defaultsettings.js",
+			"background/notify.js"
+		],
+		"persistent": false
+	},
+	"permissions": [
+		"http://mylive.in.th/*",
+		"http://stream.mylive.in.th/*",
+		"storage",
+		"alarms",
+		"notifications"
+	],
+	"web_accessible_resources": [
+		"settings/settings.html",
+		"page_script/nico_guest.js"
+	]
+}
