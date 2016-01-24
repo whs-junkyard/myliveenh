@@ -1,0 +1,18 @@
+{
+  "name": "myliveenh",
+  "homepage": "https://github.com/whs/myliveenh",
+  "authors": [
+    "Manatsawin Hanmongkolchai <manatsawin+git@gmail.com>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0"
+  }
+}
