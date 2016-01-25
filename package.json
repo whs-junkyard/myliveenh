@@ -1,0 +1,25 @@
+{
+  "name": "myliveenh",
+  "version": "2.0.0",
+  "description": "Enhancements to MyLive.in.th",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whs/myliveenh.git"
+  },
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/whs/myliveenh/issues"
+  },
+  "homepage": "https://github.com/whs/myliveenh#readme",
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-runtime": "^6.4.3",
+    "babel-preset-modern": "^1.0.0",
+    "babel-preset-stage-1": "^6.3.13",
+    "gulp": "^3.9.0",
+    "gulp-file": "^0.2.0",
+    "webpack": "^1.12.12",
+    "webpack-stream": "^3.1.0"
+  }
+}

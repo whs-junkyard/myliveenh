@@ -1,9 +1,6 @@
 {
   "name": "myliveenh",
   "homepage": "https://github.com/whs/myliveenh",
-  "authors": [
-    "Manatsawin Hanmongkolchai <manatsawin+git@gmail.com>"
-  ],
   "private": true,
   "ignore": [
     "**/.*",

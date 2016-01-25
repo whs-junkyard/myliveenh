@@ -1,0 +1,5 @@
+{
+	"name": "follownotify",
+	"private": true,
+	"main": "main.js"
+}

@@ -1,0 +1,4 @@
+{
+	"presets": ["modern", "stage-1"],
+	"plugins": ["transform-runtime"]
+}
