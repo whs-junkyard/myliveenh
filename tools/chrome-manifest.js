@@ -1,11 +1,15 @@
-let generate = () => {
-	let pkgManifest = require('../package.json');
+import glob from 'glob-promise';
+import path from 'path';
+
+let generate = async function(){
+	let mainManifest = require('../package.json');
+	let subpackages = await glob(path.resolve('src/*/package.json'));
 
 	let manifest = {
 		'manifest_version': 2,
 		'name': 'MyLive Enhancements 2',
-		'version': pkgManifest.version,
-		'description': pkgManifest.description,
+		'version': mainManifest.version,
+		'description': mainManifest.description,
 		'icons': {
 			'128': 'data/icon.png',
 		},
@@ -28,23 +32,28 @@ let generate = () => {
 		// 	}
 		// ],
 		'background': {
-			'scripts': [
-				'background.js'
-			],
+			'scripts': ['background.js'],
 			'persistent': false,
 		},
 		'permissions': [
 			'http://mylive.in.th/*',
 			'http://stream.mylive.in.th/*',
 			'storage',
-			'alarms',
-			'notifications',
 		],
 		'web_accessible_resources': [
 			// 'settings/settings.html',
 			// 'page_script/resume_angular.js'
 		],
 	};
+
+	for(let manifestPath of subpackages){
+		let subpackage = require(manifestPath);
+		let srcRoot = path.relative(path.join(__dirname, '..'), path.dirname(manifestPath));
+		
+		if(subpackage.permissions){
+			manifest.permissions = manifest.permissions.concat(subpackage.permissions);
+		}
+	}
 
 	return manifest;
 };

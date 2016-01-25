@@ -4,7 +4,7 @@
  */
 
 import Settings from 'settings';
-import FollowNotify from 'follownotify';
+import Following from 'core/following';
 
 const alarmName = 'notify';
 const sound = new Audio('data/notify.ogg');
@@ -17,8 +17,8 @@ export let createAlarm = (duration) => {
 };
 
 export let loadFollow = async function(){
-	let followNotify = new FollowNotify();
-	let newRooms = await followNotify.update();
+	let following = new Following();
+	let newRooms = await following.get();
 	for(let room of newRooms){
 		chrome.notifications.create(
 			`http://mylive.in.th/streams/${room.no}`,

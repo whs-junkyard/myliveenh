@@ -2,14 +2,12 @@ import gulp from 'gulp';
 import webpack from 'webpack-stream';
 import file from 'gulp-file';
 import chromeGenerator from './tools/chrome-manifest';
+import getBackgroundScripts from './tools/get-background';
 import path from 'path';
 
 const dest = 'build';
 const webpackConfig = {
-	watch: true,
-	output: {
-		filename: 'background.js'
-	},
+	// watch: true,
 	module: {
 		loaders: [
 			{
@@ -27,15 +25,41 @@ const webpackConfig = {
 };
 
 gulp.task('default', ['generate-chrome-manifest', 'copy', 'build']);
+gulp.task('build', ['build-background']);
 
-gulp.task('generate-chrome-manifest', () => {	
-	return file('manifest.json', JSON.stringify(chromeGenerator(), null, '\t'), {src: true})
-		.pipe(gulp.dest(dest));
+gulp.task('generate-chrome-manifest', async function(){
+	return file(
+		'manifest.json',
+		JSON.stringify(await chromeGenerator(), null, '\t'),
+		{src: true}
+	).pipe(gulp.dest(dest));
 });
 
-gulp.task('build', () => {
-	gulp.src('src/chrome/background.js', {base: './'})
-		.pipe(webpack(webpackConfig))
+gulp.task('generate-background', (cb) => {
+	getBackgroundScripts().then((backgrounds) => {
+		return backgrounds.map(item => {
+			item = path.join('..', item);
+			return `import ${path.basename(item).replace(/\.js/, '')} from ${JSON.stringify(item)};`;
+		}).join('\n');
+	}).then((script) => {
+		// seems gulp does not understand a promise that return a stream
+		return file(
+			'background.js',
+			script,
+			{src: true}
+		)
+			.pipe(gulp.dest(dest))
+			.on('end', cb);
+	});
+});
+gulp.task('build-background', ['generate-background'], () => {
+	let config = Object.assign({}, webpackConfig);
+	config.output = {
+		filename: 'background.js'
+	};
+
+	return gulp.src(path.join(dest, 'background.js'))
+		.pipe(webpack(config))
 		.pipe(gulp.dest(dest));
 });
 
@@ -47,6 +71,5 @@ gulp.task('copy', () => {
 });
 
 gulp.task('watch', () => {
-	gulp.watch('tools/chrome-manifest.js', ['generate-chrome-manifest']);
 	gulp.watch('src/**/*.js', ['build']);
 });

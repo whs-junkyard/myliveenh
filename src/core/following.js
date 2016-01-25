@@ -3,7 +3,7 @@
  * (C) 2016 whs.in.th All rights reserved
  */
 
-export default class FollowNotify{
+export default class Following{
 	static endpoint = 'http://mylive.in.th/api/main';
 
 	get knownRoom(){
@@ -14,8 +14,8 @@ export default class FollowNotify{
 		localStorage.followNotificationState = JSON.stringify(val);
 	}
 
-	async update(){
-		let list = await this.getLiveList();
+	async get(){
+		let list = await this._fetchRooms();
 		let roomIds = [];
 		let knownRoom = this.knownRoom;
 		let newRooms = [];
@@ -32,17 +32,17 @@ export default class FollowNotify{
 		return newRooms;
 	}
 
-	getLiveList(){
-		return fetch(this.buildRequest())
+	_fetchRooms(){
+		return fetch(this._buildRequest())
 			.then((res) => res.json())
 			.then((res) => res.room);
 	}
 
-	buildRequest(){
+	_buildRequest(){
 		let header = new Headers();
 		header.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
 
-		return new Request(FollowNotify.endpoint, {
+		return new Request(Following.endpoint, {
 			method: 'POST',
 			headers: header,
 			body: 'tag=follow',

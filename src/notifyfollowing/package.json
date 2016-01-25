@@ -1,0 +1,9 @@
+{
+	"name": "notifyfollowing",
+	"private": true,
+	"background": ["background.js"],
+	"permissions": [
+		"alarms",
+		"notifications"
+	]
+}
