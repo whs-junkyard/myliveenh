@@ -1,0 +1,19 @@
+#enh__login_outer{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(0,0,0,0.8);
+	z-index: 9999;
+	height: 100%;
+	display: none;
+}
+.enh__login{
+	margin: auto;
+	margin-top: 100px;
+	width: 100%;
+	max-width: 600px;
+	background: white;
+	box-shadow: black 0px 0px 5px;
+	padding: 10px 30px;
+}
