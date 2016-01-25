@@ -1,13 +1,12 @@
 {
-	"name": "index-tags",
+	"name": "nofeaturedvideo",
 	"private": true,
 	"content_scripts": [
 		{
 			"matches": ["http://mylive.in.th/"],
 			"js": ["content_script.js"],
 			"css": ["content_script.css"],
-			"run_at": "document_end",
-			"stop_angular": true
+			"run_at": "document_end"
 		}
 	]
 }
