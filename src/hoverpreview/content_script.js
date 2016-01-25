@@ -1,16 +1,11 @@
 import $ from 'jquery';
 import streamUrl from 'core/streamurl';
+import injectScript from 'core/injectscript';
 
-let DELAY = 500;
+let DELAY = 1000;
 let ID = 0;
 
-let injectScript = function(script){
-	let node = document.createElement('script');
-	node.innerHTML = script;
-	document.body.appendChild(node);
-};
-
-$('.thn').parent()
+$('#mainpagebody')
 	.on('mouseenter', '.thumb', function(){
 		let item = $(this);
 		let node = this;

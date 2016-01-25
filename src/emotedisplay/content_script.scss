@@ -1,0 +1,18 @@
+#logmain .enh__emotedisplay{
+	position: relative;
+	display: inline-block;
+}
+#logmain .enh__emotedisplay:hover::after{
+	display: block;
+	content: attr(data-code);
+	background: #000;
+	border-radius: 4px;
+	color: white;
+	padding: 3px 8px;
+	font-size: 9pt;
+	position: absolute;
+	top: 28px;
+	left: 0px;
+	z-index: 10000;
+	white-space: nowrap;
+}
