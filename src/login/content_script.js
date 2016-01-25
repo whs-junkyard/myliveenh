@@ -2,7 +2,8 @@ import $ from 'jquery';
 
 const ESC = 27;
 
-if($('.menu_guest').length !== 0){
+if(typeof window.__loginModified === 'undefined' && $('.menu_guest').length !== 0){
+	window.__loginModified = true;
 	let loginWnd = $(`<div id="enh__login_outer">
 		<div class="enh__login">
 			<h3>Login</h3>

@@ -32,18 +32,19 @@ let generate = async function(){
 	for(let manifestPath of subpackages){
 		let subpackage = require(manifestPath);
 		let srcRoot = path.relative(path.join(__dirname, '..', 'src'), path.dirname(manifestPath));
-		
+
 		if(subpackage.permissions){
 			manifest.permissions = manifest.permissions.concat(subpackage.permissions);
 		}
 		if(subpackage.content_scripts){
 			let contentScript = subpackage.content_scripts.map((item) => {
 				item = Object.assign({}, item); // copy
-				
+
 				if(item.js){
 					item.js = item.js.map((js) => {
 						return path.join(srcRoot, js);
 					});
+					item.js.unshift('commons.js');
 				}
 				if(item.css){
 					item.css = item.css.map((css) => {
@@ -53,7 +54,7 @@ let generate = async function(){
 				if(item.stop_angular){
 					manifest.content_scripts = manifest.content_scripts.concat({
 						matches: item.matches,
-						js: ['core/stop_angular.js'],
+						js: ['stop_angular.js'],
 						run_at: 'document_start',
 					});
 

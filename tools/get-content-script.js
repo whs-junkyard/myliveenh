@@ -19,9 +19,6 @@ let generate = async function(){
 						scripts.add(file);
 					}
 				}
-				if(item.stop_angular){
-					scripts.add('src/core/stop_angular.js');
-				}
 			}
 		}
 	}

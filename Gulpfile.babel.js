@@ -37,7 +37,7 @@ const webpackConfig = {
 };
 
 gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build']);
-gulp.task('build', ['build-background', 'build-css', 'build-content-script']);
+gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-stop-angular']);
 
 gulp.task('generate-chrome-manifest', async function(){
 	return file(
@@ -90,13 +90,11 @@ gulp.task('build-css', () => {
 gulp.task('build-content-script', (cb) => {
 	let config = Object.assign({}, webpackConfig);
 	config.watch = true;
-	// config.plugins = config.plugins.slice(0); // clone
-	// config.plugins.push(new webpackModule.optimize.CommonsChunkPlugin({
-	// 	name: 'commons',
-	// 	minChunks: 4,
-	// 	children: true,
-	// 	async: true,
-	// }));
+	config.plugins = config.plugins.slice(0); // clone
+	config.plugins.push(new webpackModule.optimize.CommonsChunkPlugin({
+		name: 'commons',
+		minChunks: 4,
+	}));
 
 	getContentScripts().then((scripts) => {
 		return gulp.src(Array.from(scripts.values()));
@@ -110,6 +108,13 @@ gulp.task('build-content-script', (cb) => {
 			.pipe(gulp.dest(dest))
 			.on('end', cb);
 	});
+});
+
+gulp.task('build-stop-angular', () => {
+	return gulp.src('src/core/stop_angular.js')
+		.pipe(named())
+		.pipe(webpack(webpackConfig))
+		.pipe(gulp.dest(dest));
 });
 
 gulp.task('copy', () => {

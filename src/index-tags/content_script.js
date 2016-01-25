@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import resume from 'core/stop_angular';
+import resume from 'core/resume_angular';
 
 var tagsNode = $('<div />')
 	.addClass('enh__tags')
