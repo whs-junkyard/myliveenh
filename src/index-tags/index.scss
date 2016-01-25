@@ -1,15 +1,16 @@
-.enh-tags{
+.enh__tags{
 	display: none;
 }
 .thumb:hover .info{
 	display: none;
 }
-.thumb:hover .enh-tags{
+.thumb:hover .enh__tags{
 	display: block;
 }
-#enh-fakevideoview{
+
+#fakevideoview{
 	width: 100%;
 }
-#enh-fakevideoview img{
+#fakevideoview img{
 	width: 100%;
 }

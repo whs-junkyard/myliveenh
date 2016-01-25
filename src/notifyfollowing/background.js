@@ -62,7 +62,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 		return;
 	}
 
-	loadNotify();
+	loadFollow();
 });
 
 chrome.notifications.onButtonClicked.addListener((notify) => {
