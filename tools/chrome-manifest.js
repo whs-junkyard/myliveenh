@@ -1,5 +1,6 @@
 import glob from 'glob-promise';
 import path from 'path';
+import mergeContentScript from './merge-content-script';
 
 let generate = async function(){
 	let mainManifest = require('../package.json');
@@ -65,6 +66,8 @@ let generate = async function(){
 			manifest.content_scripts = manifest.content_scripts.concat(contentScript);
 		}
 	}
+
+	manifest.content_scripts = mergeContentScript(manifest.content_scripts);
 
 	return manifest;
 };
