@@ -1,5 +1,23 @@
 {
 	"name": "notifyfollowing",
+	"description": "แจ้งเตือนคนที่ follow",
+
+	"category": "เตือน Follow",
+	"no_disable": true,
+	"settings": {
+		"notifyFollow": {
+			"default": 5,
+			"type": "number",
+			"min": 0,
+			"label": "อัพเดตทุกๆ (นาที) ระบุ 0 เพื่อปิด"
+		},
+		"notifySound": {
+			"default": false,
+			"type": "boolean",
+			"label": "เล่นเสียงแจ้งเตือน"
+		}
+	},
+
 	"private": true,
 	"background": ["background.js"],
 	"permissions": [

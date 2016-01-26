@@ -1,5 +1,8 @@
 {
-	"name": "index-tags",
+	"name": "indextags",
+	"description": "แสดงแท็กห้องเมื่อชี้ที่ห้อง",
+	"category": "หน้าแรก",
+	"default_enabled": true,
 	"private": true,
 	"content_scripts": [
 		{

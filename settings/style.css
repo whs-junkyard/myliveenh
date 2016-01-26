@@ -1,0 +1,26 @@
+#container{
+	color: white;
+	width: 960px;
+	margin: auto;
+}
+.label{
+	margin-left: 10px;
+}
+.save{
+	margin-top: 20px;
+}
+.saved{
+	background-color: #646666;
+	text-shadow: 0 -1px rgba(0,0,0,.69);
+	color: #c6c8c8;
+	border: 1px solid #303233;
+	box-shadow: inset 0 1px #727373;
+	margin-top: 20px;
+	padding: 0 .875rem;
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.688rem;
+}
+.topcoat-text-input{
+	width: 56px;
+}

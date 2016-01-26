@@ -17,18 +17,23 @@
     "babel-plugin-transform-runtime": "^6.4.3",
     "babel-preset-modern": "^1.0.0",
     "babel-preset-stage-1": "^6.3.13",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
     "glob": "^6.0.4",
     "glob-promise": "^1.0.6",
     "gulp": "^3.9.0",
     "gulp-file": "^0.2.0",
     "gulp-postcss": "^6.0.1",
     "gulp-rename": "^1.2.2",
+    "json-loader": "^0.5.4",
     "postcss-loader": "^0.8.0",
+    "style-loader": "^0.13.0",
     "vinyl-named": "^1.1.0",
     "webpack": "^1.12.12",
     "webpack-stream": "^3.1.0"
   },
   "dependencies": {
-    "jquery": "^2.2.0"
+    "jquery": "^2.2.0",
+    "topcoat": "^0.7.5"
   }
 }

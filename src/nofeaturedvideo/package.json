@@ -1,5 +1,8 @@
 {
 	"name": "nofeaturedvideo",
+	"description": "แสดง Recommend for you เป็นภาพนิ่ง",
+	"category": "หน้าแรก",
+	"default_enabled": false,
 	"private": true,
 	"content_scripts": [
 		{

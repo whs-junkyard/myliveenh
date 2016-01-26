@@ -13,6 +13,7 @@ let generate = async function(){
 		'icons': {
 			'128': 'data/icon.png',
 		},
+		'options_page': 'settings/index.html',
 		'content_scripts': [],
 		'background': {
 			'scripts': ['background.js'],
@@ -22,10 +23,6 @@ let generate = async function(){
 			'http://mylive.in.th/*',
 			'http://stream.mylive.in.th/*',
 			'storage',
-		],
-		'web_accessible_resources': [
-			// 'settings/settings.html',
-			// 'page_script/resume_angular.js'
 		],
 	};
 
@@ -54,7 +51,7 @@ let generate = async function(){
 				if(item.stop_angular){
 					manifest.content_scripts = manifest.content_scripts.concat({
 						matches: item.matches,
-						js: ['stop_angular.js'],
+						js: ['core/stop_angular.js'],
 						run_at: 'document_start',
 					});
 

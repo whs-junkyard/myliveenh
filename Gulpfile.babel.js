@@ -24,6 +24,10 @@ const webpackConfig = {
 				test: /\.js$/,
 				exclude: /(node_modules|bower_components)/,
 				loader: 'babel',
+			},
+			{
+				test: /\.json$/,
+				loader: 'json',
 			}
 		]
 	},
@@ -37,7 +41,7 @@ const webpackConfig = {
 };
 
 gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build']);
-gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-stop-angular']);
+gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-settings']);
 
 gulp.task('generate-chrome-manifest', async function(){
 	return file(
@@ -89,7 +93,6 @@ gulp.task('build-css', () => {
 
 gulp.task('build-content-script', (cb) => {
 	let config = Object.assign({}, webpackConfig);
-	config.watch = true;
 	config.plugins = config.plugins.slice(0); // clone
 	config.plugins.push(new webpackModule.optimize.CommonsChunkPlugin({
 		name: 'commons',
@@ -110,16 +113,30 @@ gulp.task('build-content-script', (cb) => {
 	});
 });
 
-gulp.task('build-stop-angular', () => {
-	return gulp.src('src/core/stop_angular.js')
+gulp.task('build-settings', () => {
+	let config = Object.assign({}, webpackConfig);
+	config.module.loaders.push({
+		test: /\.css$/,
+		loaders: ['style-loader', 'css-loader'],
+	});
+	config.module.loaders.push({
+		test: /\.(eot|ttf|svg|otf)$/,
+		loader: 'file-loader',
+	});
+	config.output = {
+		publicPath: '/settings/'
+	};
+
+	return gulp.src('src/core/settings.js')
 		.pipe(named())
 		.pipe(webpack(webpackConfig))
-		.pipe(gulp.dest(dest));
+		.pipe(gulp.dest(path.join(dest, 'settings')));
 });
 
 gulp.task('copy', () => {
 	return gulp.src([
 		'data/**/*',
+		'settings/**/*',
 	], {base: './'})
 		.pipe(gulp.dest(dest));
 });
@@ -129,8 +146,9 @@ gulp.task('copy-modules', () => {
 		'src/**/*',
 		'!src/**/*.js',
 		'!src/**/*.scss',
-		'!src/**/package.json'
+		'!src/**/package.json',
 	], {base: './src/'})
+		.pipe(gulp.src('src/core/stop_angular.js', {base: './src/'}))
 		.pipe(gulp.dest(dest));
 });
 
@@ -140,8 +158,16 @@ gulp.task('watch', () => {
 		'src/**/*.scss',
 	], ['build']);
 	gulp.watch([
+		'data/**/*',
+		'settings/**/*',
+	], ['copy']);
+	gulp.watch([
 		'src/**/*',
 		'!src/**/*.js',
 		'!src/**/*.scss',
 	], ['copy-modules']);
+	gulp.watch([
+		'src/core/settings.js',
+		'settings/**/*'
+	], ['build-settings']);
 });

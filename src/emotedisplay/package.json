@@ -1,5 +1,8 @@
 {
 	"name": "emotedisplay",
+	"description": "แสดงโค้ด emoticon เมื่อชี้",
+	"category": "Chat",
+	"default_enabled": true,
 	"private": true,
 	"content_scripts": [
 		{
