@@ -13,16 +13,17 @@ class SettingsPage{
 		this.loadSettings();
 		let self = this;
 
-		$('<div class="save"><button class="topcoat-button--large">Save</button></div>')
+		$('<div class="save"><button class="topcoat-button--large--cta">Save</button></div>')
 			.appendTo(this.target)
 			.find('button')
 			.click(async function(){
 				await self.save();
-				let saved = $('<div class="saved">รีเฟรชหน้าเพื่ออัพเดตการตั้งค่าใหม่</div>').appendTo(self.target);
+				$('<div class="saved">กำลังโหลดการตั้งค่าใหม่</div>').appendTo(self.target);
+				alert('รีโหลดแท็บ mylive เพื่อใช้การตั้งค่าใหม่');
 
 				setTimeout(() => {
-					saved.remove();
-				}, 2000);
+					chrome.runtime.reload();
+				}, 500);
 			});
 	}
 
@@ -132,7 +133,7 @@ class SettingsPage{
 				}
 			}
 		}
-		Settings.settings = settings;
+		return Settings.set(settings);
 	}
 }
 

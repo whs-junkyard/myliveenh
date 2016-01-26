@@ -12,9 +12,11 @@ class Settings{
 
 	constructor(){
 		this.loadModuleDefault();
-		
+
 		chrome.storage.sync.get('settings', (data) => {
-			Object.assign(this._settings, JSON.parse(data.settings));
+			if(data.settings){
+				Object.assign(this._settings, JSON.parse(data.settings));
+			}
 			this._ready();
 		});
 	}
@@ -54,6 +56,20 @@ class Settings{
 		});
 	}
 
+	set(settings){
+		this._settings = settings;
+		return new Promise((resolve, reject) => {
+			chrome.storage.sync.set({
+				settings: JSON.stringify(this._settings)
+			}, () => {
+				if(chrome.runtime.lastError){
+					return reject(chrome.runtime.lastError);
+				}
+				resolve();
+			});
+		});
+	}
+
 	get settings(){
 		if(!this._isReady){
 			console.error('Settings accessed before loading finished');
@@ -62,10 +78,7 @@ class Settings{
 	}
 
 	set settings(val){
-		this._settings = val;
-		chrome.storage.sync.set({
-			settings: JSON.stringify(val)
-		});
+		this.set(val);
 	}
 }
 

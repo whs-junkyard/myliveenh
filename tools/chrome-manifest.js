@@ -24,6 +24,9 @@ let generate = async function(){
 			'http://stream.mylive.in.th/*',
 			'storage',
 		],
+		'web_accessible_resources': [
+			'settings/index.html',
+		],
 	};
 
 	for(let manifestPath of subpackages){
