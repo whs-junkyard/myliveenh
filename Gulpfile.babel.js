@@ -7,6 +7,7 @@ import file from 'gulp-file';
 import named from 'vinyl-named';
 import rename from 'gulp-rename';
 import postcss from 'gulp-postcss';
+import zip from 'gulp-zip';
 
 import chromeGenerator from './tools/chrome-manifest';
 import getBackgroundScripts from './tools/get-background';
@@ -170,4 +171,10 @@ gulp.task('watch', () => {
 		'src/core/settings.js',
 		'settings/**/*'
 	], ['build-settings']);
+});
+
+gulp.task('release', ['default'], () => {
+	return gulp.src('build/**/*')
+		.pipe(zip('release.zip'))
+		.pipe(gulp.dest('.'));
 });
