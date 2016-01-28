@@ -26,10 +26,12 @@ export let loadFollow = async function(){
 				'type': 'basic',
 				'iconUrl': room.img,
 				'title': room.title,
-				'message': room.tags.map(function(item){
+				'message': room.sname,
+				'contextMessage': room.tags.map(function(item){
 					return '#' + item;
 				}).join(' '),
-				'buttons': [{'title': 'Watch'}]
+				'buttons': [{'title': 'Watch'}],
+				'eventTime': room.startstamp*1000,
 			},
 			function(){}
 		);
