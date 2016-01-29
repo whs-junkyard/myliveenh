@@ -43,8 +43,8 @@ const webpackConfig = {
 	postcss: postcssConfig
 };
 
-gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build']);
-gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-settings', 'build-js']);
+gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build', 'build-settings']);
+gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-js']);
 
 gulp.task('generate-chrome-manifest', async function(){
 	return file(
@@ -58,7 +58,8 @@ gulp.task('generate-background', (cb) => {
 	getBackgroundScripts().then((backgrounds) => {
 		return backgrounds.map(item => {
 			item = path.join('..', item);
-			return `import ${path.basename(item).replace(/\.js/, '')} from ${JSON.stringify(item)};`;
+			let modName = path.relative('../src/', item).replace(/\//g, '_').replace(/\.js/, '');
+			return `import ${modName} from ${JSON.stringify(item)};`;
 		}).join('\n');
 	}).then((script) => {
 		// seems gulp does not understand a promise that return a stream
@@ -197,10 +198,10 @@ gulp.task('watch', () => {
 		'!src/**/*.js',
 		'!src/**/*.scss',
 	], ['copy-modules']);
-	gulp.watch([
-		'src/core/settings.js',
-		'settings/**/*'
-	], ['build-settings']);
+	// gulp.watch([
+	// 	'src/core/settings.js',
+	// 	'settings/**/*'
+	// ], ['build-settings']);
 });
 
 gulp.task('release', ['default'], () => {

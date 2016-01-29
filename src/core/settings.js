@@ -1,15 +1,19 @@
 import $ from 'jquery';
 import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css';
 import Settings from 'settings';
+import Database from 'emotepack/database';
 
 const loader = require.context('../', true, /package\.json$/);
+const EMOTE_WORKER = '/emotepack/emoteloader.js';
 
 class SettingsPage{
 	options = new Map();
 
-	constructor(target){
+	constructor(target, emotesTarget){
 		this.target = $(target);
+		this.emotesTarget = $(emotesTarget);
 		this.renderOptions();
+		this.renderEmotes();
 		this.loadSettings();
 		let self = this;
 
@@ -135,6 +139,73 @@ class SettingsPage{
 		}
 		return Settings.set(settings);
 	}
+
+	renderEmotes(){
+		let emote = $(`
+<div class="emotepick">
+	<button class="topcoat-button--large">Load emotes pack</button>
+	<input type="file" type="application/zip" />
+</div>
+`)
+			.on('change', (e) => {
+				if(e.target.files.length === 0){
+					return;
+				}
+
+				let file = e.target.files[0];
+				let worker = new Worker(EMOTE_WORKER);
+				worker.onmessage = (msg) => {
+					if(msg.data){
+						alert(msg.data);
+					}
+					worker.terminate();
+					this.refreshEmote();
+				};
+				worker.postMessage(file);
+			})
+			.appendTo(this.emotesTarget);
+
+		this.emoteList = $('<div id="emotelist" />')
+			.appendTo(this.emotesTarget);
+		this.refreshEmote();
+	}
+
+	async refreshEmote(){
+		this.emoteList.empty();
+
+		let database = await Database();
+		let tx = database.transaction(['emotes', 'emotesFile']);
+
+		let request = tx.objectStore('emotes').getAll();
+		request.onsuccess = (e) => {
+			let list = e.target.result;
+			for(let item of list){
+				let head = $('<div class="list-head" />')
+					.text(item.name)
+					.appendTo(this.emoteList);
+
+				$('<button class="topcoat-button">Remove</button>')
+					// TODO
+					.appendTo(head);
+
+				for(let emote in item.emotes){
+					let row = $('<div class="emote" />')
+						.appendTo(this.emoteList);
+
+					$('<div class="text" />')
+						.text(emote)
+						.appendTo(row);
+
+					let request = tx.objectStore('emotesFile')
+						.get(item.emotes[emote]);
+					request.onsuccess = (e) => {
+						let url = window.URL.createObjectURL(e.target.result);
+						$('<img />').attr('src', url).prependTo(row);
+					};
+				}
+			}
+		};
+	}
 }
 
-export default new SettingsPage($('#target'));
+export default new SettingsPage($('#target'), $('#emotes'));

@@ -1,7 +1,12 @@
 #container{
 	color: white;
-	width: 960px;
+	max-width: 960px;
 	margin: auto;
+}
+.flex{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 .label{
 	margin-left: 10px;
@@ -23,4 +28,56 @@
 }
 .topcoat-text-input{
 	width: 56px;
+}
+#target, #emotes{
+	width: 50%;
+}
+.emotepick{
+	margin-bottom: 10px;
+	position: relative;
+	width: 150px;
+	height: 2rem;
+}
+.emotepick input[type=file], .emotepick button{
+	position: absolute;
+	top: 0; left:0;
+	width: 100%;
+	height: 100%;
+}
+.emotepick input[type=file]{
+	opacity: 0;
+}
+#emotelist{
+	height: 350px;
+	overflow-y: auto;
+	border: 1px solid #303233;
+	border-radius: 4px;
+}
+.list-head{
+	background: #646666;
+	padding: .2rem .875rem;
+	font-weight: bold;
+	line-height: 23px;
+	height: 23px;
+}
+.list-head button{
+	float: right;
+}
+.emote{
+	border-bottom: #646666 solid 1px;
+	padding: .2rem .4rem;
+	min-height: 30px;
+	line-height: 30px;
+}
+.emote:last-child{
+	border-bottom: none;
+}
+.emote .text{
+	padding-left: 40px;
+}
+.emote img{
+	vertical-align: middle;
+	margin-right: 10px;
+	display: block;
+	float: left;
 }
