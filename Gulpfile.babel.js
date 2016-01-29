@@ -12,6 +12,7 @@ import deepcopy from 'deepcopy';
 import glob from 'glob-promise';
 import uglify from 'gulp-uglify/minifier';
 import uglifyJS from 'uglify-js';
+import cssnano from 'cssnano';
 
 import chromeGenerator from './tools/chrome-manifest';
 import getBackgroundScripts from './tools/get-background';
@@ -20,6 +21,7 @@ import getContentScripts from './tools/get-content-script';
 const dest = 'build';
 const postcssConfig = () => {
 	return [
+		cssnano()
 	];
 };
 const webpackConfig = {
@@ -206,13 +208,13 @@ gulp.task('watch', () => {
 	// ], ['build-settings']);
 });
 
-gulp.task('compress', ['default'], () => {
+gulp.task('compress-js', ['default'], () => {
 	return gulp.src(path.join(dest, '**/*.js'))
 		.pipe(uglify({}, uglifyJS))
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('release', ['default', 'compress'], () => {
+gulp.task('release', ['default', 'compress-js'], () => {
 	return gulp.src(path.join(dest, '**/*'))
 		.pipe(zip('release.zip'))
 		.pipe(gulp.dest('.'));
