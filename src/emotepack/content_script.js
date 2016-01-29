@@ -4,12 +4,9 @@ import ChatObserver from 'core/chatobserver';
 import Database from './database';
 
 class EmotePackReplacer extends ChatObserver{
-	pendingSizing = {};
-
 	constructor(emotes){
 		super();
 		this.emotes = emotes;
-		window.addEventListener('message', this.onMessage.bind(this), false)
 	}
 	processChatNode(node){
 		let message = $(node).find('span[ng-bind-html^="log.d"]');
@@ -60,49 +57,41 @@ class EmotePackReplacer extends ChatObserver{
 			emoteNode.splitText(emote[0].length); // after emote
 		}catch(e){} // if emote is last of the line the split will fail
 
-		let emoteId = this.emotes[emote[0]];
+		let emoteData = this.emotes[emote[0]];
 
-		let replacement = $('<div class="enh__emotedisplay"><iframe class="enh__emoteiframe" seamless /></div>')
-			.attr('data-code', emote[0])
-			.find('iframe')
-				.attr('src', chrome.runtime.getURL('data/emote.html') + '#' + emoteId)
-				.end();
+		let replacement = $('<div class="enh__emotedisplay"><img /></div>')
+			.attr('data-code', emote[0]);
 
-		if(!this.pendingSizing[emoteId]){
-			this.pendingSizing[emoteId] = [];
+		if(typeof emoteData == 'number'){
+			getEmoteUrl(emoteData).then((url) => {
+				this.emotes[emote[0]] = url;
+				replacement.find('img')
+					.attr('src', url);
+			});
+		}else{
+			replacement.find('img')
+				.attr('src', emoteData);
 		}
-		this.pendingSizing[emoteId].push(replacement.find('iframe'));
 
 		parent.replaceChild(replacement.get(0), emoteNode);
 	}
-
-	onMessage(e){
-		if(e.origin != `chrome-extension://${chrome.runtime.id}` || e.data.type != 'emoteSizing'){
-			return;
-		}
-		let pending = this.pendingSizing[e.data.id];
-		if(!pending || pending.length === 0){
-			return;
-		}
-
-		for(let node of pending){
-			node.css({
-				width: e.data.width,
-				height: e.data.height,
-			});
-		}
-
-		delete this.pendingSizing[e.data.id];
-	}
 }
 
-let loadEmotePack = function(){
+let getEmoteUrl = (id) => {
+	return new Promise((resolve, reject) => {
+		chrome.runtime.sendMessage({emotepack: 'getEmote', id: id}, (data) => {
+			resolve(data);
+		});
+	});
+};
+
+let loadEmotePack = () => {
 	chrome.runtime.sendMessage({emotepack: 'getPacks'}, (list) => {
 		for(let item of list){
 			new EmotePackReplacer(item.emotes);
 		}
 	});
-}
+};
 
 Settings.get().then(function(settings){
 	if(settings.emotepack){
