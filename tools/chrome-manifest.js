@@ -69,6 +69,9 @@ let generate = async function(){
 
 	manifest.content_scripts = mergeContentScript(manifest.content_scripts);
 
+	let dataFiles = await glob('data/*');
+	manifest.web_accessible_resources = manifest.web_accessible_resources.concat(dataFiles);
+
 	return manifest;
 };
 

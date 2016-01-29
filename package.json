@@ -18,6 +18,7 @@
     "babel-preset-modern": "^1.0.0",
     "babel-preset-stage-1": "^6.3.13",
     "css-loader": "^0.23.1",
+    "deepcopy": "^0.6.1",
     "file-loader": "^0.8.5",
     "glob": "^6.0.4",
     "glob-promise": "^1.0.6",

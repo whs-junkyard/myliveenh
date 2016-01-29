@@ -8,6 +8,8 @@ import named from 'vinyl-named';
 import rename from 'gulp-rename';
 import postcss from 'gulp-postcss';
 import zip from 'gulp-zip';
+import deepcopy from 'deepcopy';
+import glob from 'glob-promise';
 
 import chromeGenerator from './tools/chrome-manifest';
 import getBackgroundScripts from './tools/get-background';
@@ -42,7 +44,7 @@ const webpackConfig = {
 };
 
 gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build']);
-gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-settings']);
+gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-settings', 'build-js']);
 
 gulp.task('generate-chrome-manifest', async function(){
 	return file(
@@ -70,7 +72,7 @@ gulp.task('generate-background', (cb) => {
 	});
 });
 gulp.task('build-background', ['generate-background'], () => {
-	let config = Object.assign({}, webpackConfig);
+	let config = deepcopy(webpackConfig);
 	config.output = {
 		filename: 'background.js'
 	};
@@ -93,8 +95,7 @@ gulp.task('build-css', () => {
 });
 
 gulp.task('build-content-script', (cb) => {
-	let config = Object.assign({}, webpackConfig);
-	config.plugins = config.plugins.slice(0); // clone
+	let config = deepcopy(webpackConfig);
 	config.plugins.push(new webpackModule.optimize.CommonsChunkPlugin({
 		name: 'commons',
 		minChunks: 4,
@@ -115,7 +116,7 @@ gulp.task('build-content-script', (cb) => {
 });
 
 gulp.task('build-settings', () => {
-	let config = Object.assign({}, webpackConfig);
+	let config = deepcopy(webpackConfig);
 	config.module.loaders.push({
 		test: /\.css$/,
 		loaders: ['style-loader', 'css-loader'],
@@ -124,14 +125,43 @@ gulp.task('build-settings', () => {
 		test: /\.(eot|ttf|svg|otf)$/,
 		loader: 'file-loader',
 	});
-	config.output = {
-		publicPath: '/settings/'
-	};
 
 	return gulp.src('src/core/settings.js')
 		.pipe(named())
-		.pipe(webpack(webpackConfig))
+		.pipe(webpack(config))
 		.pipe(gulp.dest(path.join(dest, 'settings')));
+});
+
+gulp.task('build-js', (cb) => {
+	let config = deepcopy(webpackConfig);
+	config.module.loaders.push({
+		test: /\.css$/,
+		loaders: ['style-loader', 'css-loader'],
+	});
+	config.module.loaders.push({
+		test: /\.(eot|ttf|svg|otf)$/,
+		loader: 'file-loader',
+	});
+
+	glob('./src/*/package.json').then((files) => {
+		let build = [];
+		for(let file of files){
+			let metadata = require(file);
+			if(metadata.build){
+				build = build.concat(metadata.build.map((item) => {
+					return path.join(path.dirname(file), item);
+				}));
+			}
+		}
+
+		gulp.src(build)
+			.pipe(named((file) => {
+				return path.relative('src', file.path).replace(/\.js$/, '');
+			}))
+			.pipe(webpack(config))
+			.pipe(gulp.dest(dest))
+			.on('end', cb);
+	});
 });
 
 gulp.task('copy', () => {
