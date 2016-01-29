@@ -10,6 +10,8 @@ import postcss from 'gulp-postcss';
 import zip from 'gulp-zip';
 import deepcopy from 'deepcopy';
 import glob from 'glob-promise';
+import uglify from 'gulp-uglify/minifier';
+import uglifyJS from 'uglify-js';
 
 import chromeGenerator from './tools/chrome-manifest';
 import getBackgroundScripts from './tools/get-background';
@@ -204,8 +206,14 @@ gulp.task('watch', () => {
 	// ], ['build-settings']);
 });
 
-gulp.task('release', ['default'], () => {
-	return gulp.src('build/**/*')
+gulp.task('compress', ['default'], () => {
+	return gulp.src(path.join(dest, '**/*.js'))
+		.pipe(uglify({}, uglifyJS))
+		.pipe(gulp.dest(dest));
+});
+
+gulp.task('release', ['default', 'compress'], () => {
+	return gulp.src(path.join(dest, '**/*'))
 		.pipe(zip('release.zip'))
 		.pipe(gulp.dest('.'));
 });
