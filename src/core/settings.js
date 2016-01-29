@@ -2,9 +2,9 @@ import $ from 'jquery';
 import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css';
 import Settings from 'settings';
 import Database from 'emotepack/database';
+import EmoteLoader from 'worker!emotepack/emoteloader';
 
 const loader = require.context('../', true, /package\.json$/);
-const EMOTE_WORKER = '/emotepack/emoteloader.js';
 
 class SettingsPage{
 	options = new Map();
@@ -157,7 +157,7 @@ class SettingsPage{
 
 				let file = e.target.files[0];
 				if(!this.emoteWorker){
-					this.emoteWorker = new Worker(EMOTE_WORKER);
+					this.emoteWorker = new EmoteLoader();
 					this.emoteWorker.onmessage = async function(msg){
 						if(msg.data){
 							alert(msg.data);

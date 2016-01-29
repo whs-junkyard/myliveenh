@@ -4,7 +4,6 @@
 	"category": "Chat",
 	"default_enabled": true,
 	"private": true,
-	"build": ["emoteloader.js", "viewer.js"],
 	"background": ["background.js"],
 	"content_scripts": [
 		{

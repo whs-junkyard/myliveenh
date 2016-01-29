@@ -35,6 +35,10 @@ const webpackConfig = {
 			{
 				test: /\.json$/,
 				loader: 'json',
+			},
+			{
+				test: /\.txt$/,
+				loader: 'raw',
 			}
 		]
 	},
@@ -103,7 +107,7 @@ gulp.task('build-content-script', (cb) => {
 	let config = deepcopy(webpackConfig);
 	config.plugins.push(new webpackModule.optimize.CommonsChunkPlugin({
 		name: 'commons',
-		minChunks: 4,
+		minChunks: 3,
 	}));
 
 	getContentScripts().then((scripts) => {
