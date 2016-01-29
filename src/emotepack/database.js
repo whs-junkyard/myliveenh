@@ -13,6 +13,6 @@ export default () => {
 		};
 		db.onerror = (e) => {
 			reject(e);
-		}
+		};
 	});
 };

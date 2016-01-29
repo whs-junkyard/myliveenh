@@ -53,6 +53,11 @@
 	border: 1px solid #303233;
 	border-radius: 4px;
 }
+#emotelist .loading{
+	text-align: center;
+	height: 350px;
+	line-height: 350px;
+}
 .list-head{
 	background: #646666;
 	padding: .2rem .875rem;

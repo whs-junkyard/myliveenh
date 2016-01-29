@@ -141,6 +141,7 @@ class SettingsPage{
 	}
 
 	renderEmotes(){
+		let self = this;
 		let emote = $(`
 <div class="emotepick">
 	<button class="topcoat-button--large">Load emotes pack</button>
@@ -152,16 +153,20 @@ class SettingsPage{
 					return;
 				}
 
+				emote.find('button').prop('disabled', true);
+
 				let file = e.target.files[0];
-				let worker = new Worker(EMOTE_WORKER);
-				worker.onmessage = (msg) => {
-					if(msg.data){
-						alert(msg.data);
-					}
-					worker.terminate();
-					this.refreshEmote();
-				};
-				worker.postMessage(file);
+				if(!this.emoteWorker){
+					this.emoteWorker = new Worker(EMOTE_WORKER);
+					this.emoteWorker.onmessage = async function(msg){
+						if(msg.data){
+							alert(msg.data);
+						}
+						await self.refreshEmote();
+						emote.find('button').prop('disabled', false);
+					};
+				}
+				this.emoteWorker.postMessage(file);
 			})
 			.appendTo(this.emotesTarget);
 
@@ -172,7 +177,10 @@ class SettingsPage{
 
 	async refreshEmote(){
 		this.emoteList.empty();
+		let loading = $('<div class="loading">Loading emotes...</div>')
+			.appendTo(this.emoteList);
 
+		let self = this;
 		let database = await Database();
 		let tx = database.transaction(['emotes', 'emotesFile']);
 
@@ -185,7 +193,10 @@ class SettingsPage{
 					.appendTo(this.emoteList);
 
 				$('<button class="topcoat-button">Remove</button>')
-					// TODO
+					.click(async function(){
+						await self.removeEmotePack(item.name);
+						self.refreshEmote();
+					})
 					.appendTo(head);
 
 				for(let emote in item.emotes){
@@ -204,7 +215,28 @@ class SettingsPage{
 					};
 				}
 			}
+
+			loading.remove();
 		};
+	}
+
+	async removeEmotePack(name){
+		let database = await Database();
+		return new Promise((resolve, reject) => {
+			let tx = database.transaction(['emotes', 'emotesFile'], 'readwrite');
+			let store = tx.objectStore('emotes');
+
+			let request = store.get(name);
+			request.onsuccess = (e) => {
+				let item = e.target.result;
+				for(let emote in item.emotes){
+					tx.objectStore('emotesFile').delete(item.emotes[emote]);
+				}
+
+				let request = store.delete(name);
+				request.onsuccess = resolve;
+			};
+		});
 	}
 }
 

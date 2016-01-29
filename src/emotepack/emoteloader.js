@@ -67,7 +67,7 @@ export default class EmoteLoader{
 			let fileName = this.manifest.emotes[emote];
 			let file = this.zip.file(fileName);
 			if(!file){
-				console.log('cannot find emote file ', fileName);
+				console.warn('cannot find emote file ', fileName);
 				delete this.manifest.emotes[emote];
 				continue;
 			}
@@ -100,7 +100,8 @@ self.onmessage = function (msg){
 	new EmoteLoader(msg.data).load().then(() => {
 		postMessage(null);
 	}, (e) => {
-		if(e.constructor instanceof Error){
+		console.error(e);
+		if(e instanceof Error){
 			postMessage(e.toString());
 		}else{
 			postMessage('Cannot load file. Is the same pack already installed?');
