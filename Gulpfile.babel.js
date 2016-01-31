@@ -45,7 +45,7 @@ const webpackConfig = {
 	resolve: {
 		root: [
 			path.resolve(path.join(__dirname, 'src'))
-		]
+		],
 	},
 	plugins: [],
 	postcss: postcssConfig

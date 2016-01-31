@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Settings from 'settings';
+import plugin from 'core/plugin';
 
 let getFeaturedUser = () => {
 	return $.trim($('.recommend .margin-top-10 div:last').text());
@@ -27,8 +27,6 @@ let generateVideoView = () => {
 	return fakeVideoView;
 };
 
-Settings.get().then(function(settings){
-	if(settings.nofeaturedvideo){
-		$('#videoview').replaceWith(generateVideoView());
-	}
+plugin('nofeaturedvideo', () => {
+	$('#videoview').replaceWith(generateVideoView());
 });

@@ -23,6 +23,11 @@ let generate = async function(){
 		'permissions': [
 			'http://mylive.in.th/*',
 			'http://stream.mylive.in.th/*',
+			'http://stream1.mylive.in.th/*',
+			'http://stream2.mylive.in.th/*',
+			'http://stream3.mylive.in.th/*',
+			'http://stream4.mylive.in.th/*',
+			'http://streamlb.mylive.in.th/*',
 			'storage',
 		],
 		'web_accessible_resources': [

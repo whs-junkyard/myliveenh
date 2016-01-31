@@ -1,13 +1,8 @@
 import $ from 'jquery';
 import resume from 'core/resume_angular';
-import Settings from 'settings';
+import plugin from 'core/plugin';
 
-Settings.get().then(function(settings){
-	if(!settings.indextags){
-		resume();
-		return;
-	}
-
+plugin('indextags', () => {
 	$(document.body).addClass('enh__indextags');
 
 	var tagsNode = $('<div />')
@@ -16,4 +11,4 @@ Settings.get().then(function(settings){
 	tagsNode.insertAfter('.info');
 
 	resume();
-});
+}, true);

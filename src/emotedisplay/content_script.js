@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import Settings from 'settings';
 import ChatObserver from 'core/chatobserver';
 import injectScript from 'core/injectscript';
+import plugin from 'core/plugin';
 
 class EmoteDisplay extends ChatObserver{
 	static emotes = {};
@@ -43,8 +43,6 @@ window.postMessage({
 	}
 }
 
-Settings.get().then(function(settings){
-	if(settings.emotedisplay){
-		new EmoteDisplay();
-	}
+plugin('emotedisplay', () => {
+	new EmoteDisplay();
 });

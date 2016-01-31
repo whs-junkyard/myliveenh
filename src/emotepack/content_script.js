@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Settings from 'settings';
+import plugin from 'core/plugin';
 import ChatObserver from 'core/chatobserver';
 import Database from './database';
 
@@ -93,8 +93,4 @@ let loadEmotePack = () => {
 	});
 };
 
-Settings.get().then(function(settings){
-	if(settings.emotepack){
-		loadEmotePack();
-	}
-});
+plugin('emotepack', loadEmotePack);

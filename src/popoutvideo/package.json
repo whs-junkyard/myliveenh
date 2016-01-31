@@ -11,5 +11,8 @@
 			"run_at": "document_idle"
 		}
 	],
-	"build": ["player.js"]
+	"build": ["player.js"],
+	"permissions": [
+		"http://stream*.mylive.in.th/*"
+	]
 }

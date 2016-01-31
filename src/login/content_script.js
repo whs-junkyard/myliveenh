@@ -1,11 +1,11 @@
 import $ from 'jquery';
-import Settings from 'settings';
+import plugin from 'core/plugin';
 import loginCode from './login.txt';
 
 const ESC = 27;
 
-Settings.get().then(function(settings){
-	if(settings.login && typeof window.__loginModified === 'undefined' && $('.menu_guest').length !== 0){
+plugin('login', () => {
+	if($('.menu_guest').length !== 0){
 		window.__loginModified = true;
 		let loginWnd = $(loginCode).appendTo('body');
 

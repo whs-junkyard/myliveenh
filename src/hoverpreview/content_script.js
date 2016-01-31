@@ -1,15 +1,12 @@
 import $ from 'jquery';
-import streamUrl from 'core/streamurl';
+import streamInfo from 'core/streaminfo';
 import injectScript from 'core/injectscript';
-import Settings from 'settings';
+import plugin from 'core/plugin';
 
 let DELAY = 1000;
 let ID = 0;
 
-Settings.get().then(function(settings){
-	if(!settings.hoverpreview){
-		return;
-	}
+plugin('hoverpreview', () => {
 	$('#mainpagebody')
 		.on('mouseenter', '.thumb', function(){
 			let item = $(this);
@@ -22,7 +19,7 @@ Settings.get().then(function(settings){
 				let width = coverImage.width(), height = coverImage.height();
 				coverImage.hide();
 
-				let url = await streamUrl(streamId);
+				let stream = await streamInfo(streamId);
 
 				let id = `enh__hoverpreview_${ID++}`;
 				node.__enh_hoverpreview_id = id;
@@ -31,7 +28,7 @@ Settings.get().then(function(settings){
 					.appendTo(item.find('.cover'));
 
 				let settings = {
-						file: url,
+						file: stream.rtmp,
 						image: coverImage.attr('src'),
 						width: width,
 						height: height,
