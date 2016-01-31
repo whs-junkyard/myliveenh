@@ -1,7 +1,14 @@
 .enh__tags{
 	display: none;
 }
-.enh__indextags .thumb:hover .info{
+.enh__tags .label{
+	font-size: 8pt;
+	word-break: break-word;
+	margin-right: 2px;
+	color: black;
+	padding: 2px;
+}
+.enh__indextags .thumb:hover .roomtitle{
 	display: none;
 }
 .thumb:hover .enh__tags{
