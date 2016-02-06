@@ -6,7 +6,7 @@ plugin('popoutvideo', () => {
 	$('<span class="fa fa-youtube-play float" />')
 		.click(() => {
 			window.open(
-				chrome.runtime.getURL('data/player.html') + `#${streamId}`,
+				`http://mylive.in.th/enh_popout/#${streamId}`,
 				'popoutplayer',
 				'width=640,height=360'
 			);

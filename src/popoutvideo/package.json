@@ -9,10 +9,11 @@
 			"matches": ["http://mylive.in.th/streams/*"],
 			"js": ["content_script.js"],
 			"run_at": "document_idle"
+		},
+		{
+			"matches": ["http://mylive.in.th/enh_popout/*"],
+			"js": ["popout.js"],
+			"run_at": "document_end"
 		}
-	],
-	"build": ["player.js"],
-	"permissions": [
-		"http://stream*.mylive.in.th/*"
 	]
 }
