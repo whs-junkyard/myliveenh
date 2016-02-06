@@ -8,7 +8,6 @@ let getFeaturedUser = () => {
 
 let getThumbnailUrl = () => {
 	let user = $('.recommend .avatar').attr('src').match(/\/([^_\/]+?)_[A-Za-z0-9]+\.jpg$/)[1];
-	console.log($('.recommend .avatar').attr('src'));
 	return `http://stream.mylive.in.th/thumbnail/${user}.png`;
 };
 

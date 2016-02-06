@@ -41,11 +41,17 @@ class SettingsPage{
 			if(!categories.has(category)){
 				categories.set(category, []);
 			}
+			let children = [];
 
 			if(!metadata.no_disable){
 				let row = this.createCheckbox(metadata.description || metadata.name);
 				categories.get(category).push(row);
 				this.options.set(metadata.name, row.find('input'));
+				row.find('input').on('change', function(){
+					for(let item of children){
+						item.prop('disabled', !this.checked);
+					}
+				});
 			}
 
 			if(metadata.settings){
@@ -54,6 +60,7 @@ class SettingsPage{
 					let row = this.createInput(value);
 					categories.get(category).push(row);
 					this.options.set(key, row.find('input'));
+					children.push(row.find('input'));
 				}
 			}
 		}
@@ -117,9 +124,9 @@ class SettingsPage{
 			if(field){
 				// regenerator fail to compile if(!field) continue
 				if(field.attr('type') === 'checkbox'){
-					field.attr('checked', settings[key]);
+					field.attr('checked', settings[key]).trigger('change');
 				}else{
-					field.val(settings[key]);
+					field.val(settings[key]).trigger('change');
 				}
 			}
 		}
