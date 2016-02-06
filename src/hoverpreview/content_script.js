@@ -11,7 +11,8 @@ plugin('hoverpreview', () => {
 		.on('mouseenter', '.thumb', function(){
 			let item = $(this);
 			let node = this;
-			let streamId = item.find('.roomtitle a').attr('href').match(/([0-9]+)$/)[0];
+			let streamUrl = item.find('.roomtitle a').attr('href');
+			let streamId = streamUrl.match(/([0-9]+)$/)[0];
 
 			clearTimeout(this.__enh_hoverpreview_timer);
 			delete this.__enh_hoverpreview_canceled;
@@ -46,6 +47,9 @@ plugin('hoverpreview', () => {
 				injectScript(`(function(){
 var playerInstance = jwplayer(${JSON.stringify(id)});
 playerInstance.setup(${JSON.stringify(settings)});
+playerInstance.on('displayClick', function(){
+	window.location = ${JSON.stringify(streamUrl)};
+});
 })();`);
 			}, DELAY);
 		})
