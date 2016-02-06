@@ -21,9 +21,13 @@ class EmoteDisplay extends ChatObserver{
 
 	processChatNode(node){
 		$('.emo', node).each(function(){
-			let wrapper = $('<span class="enh__emotedisplay" />')
-				.attr('data-code', EmoteDisplay.emotes[this.getAttribute('src')]);
+			let code = EmoteDisplay.emotes[this.getAttribute('src')];
+			let wrapper = $('<div class="enh__emotedisplay" />')
+				.attr('data-code', code);
 			$(this).wrap(wrapper);
+
+			$('<span />').text(code)
+				.appendTo(this.parentNode);
 		});
 	}
 }

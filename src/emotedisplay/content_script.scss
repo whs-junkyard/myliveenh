@@ -1,8 +1,8 @@
-#logmain .enh__emotedisplay{
+.enh__emotedisplay{
 	position: relative;
 	display: inline-block;
 }
-#logmain .enh__emotedisplay:hover::after{
+.enh__emotedisplay:hover::after{
 	display: block;
 	content: attr(data-code);
 	background: #000;
@@ -15,4 +15,9 @@
 	left: 0px;
 	z-index: 10000;
 	white-space: nowrap;
+}
+
+.enh__emotedisplay span{
+	font-size: 0;
+	color: transparent;
 }

@@ -59,8 +59,10 @@ class EmotePackReplacer extends ChatObserver{
 
 		let emoteData = this.emotes[emote[0]];
 
-		let replacement = $('<div class="enh__emotedisplay"><img /></div>')
+		let replacement = $('<div class="enh__emotedisplay"><img /><span></span></div>')
 			.attr('data-code', emote[0]);
+
+		replacement.find('span').text(emote[0]);
 
 		if(typeof emoteData == 'number'){
 			getEmoteUrl(emoteData).then((url) => {
