@@ -12,5 +12,12 @@
 			"run_at": "document_end"
 		}
 	],
-	"permissions": ["unlimitedStorage"]
+	"permissions": ["unlimitedStorage"],
+	"settings": {
+		"emotepackNico": {
+			"default": true,
+			"type": "boolean",
+			"label": "แสดง Emote pack ในตัววิ่ง"
+		}
+	}
 }

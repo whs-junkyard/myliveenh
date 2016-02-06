@@ -1,18 +1,18 @@
 import $ from 'jquery';
 import plugin from 'core/plugin';
 import ChatObserver from 'core/chatobserver';
+import NicoObserver from 'core/nicoobserver';
 import Database from './database';
+import Settings from 'settings';
 
-class EmotePackReplacer extends ChatObserver{
+class Replacer{
 	constructor(emotes){
-		super();
 		this.emotes = emotes;
 	}
+
 	processChatNode(node){
-		let message = $(node).find('span[ng-bind-html^="log.d"]');
-		let messageNode = message.get(0);
-		for(let i = 0; i < messageNode.childNodes.length; i++){
-			let child = messageNode.childNodes[i];
+		for(let i = 0; i < node.childNodes.length; i++){
+			let child = node.childNodes[i];
 			if(!(child instanceof Text)){
 				continue;
 			}
@@ -21,14 +21,22 @@ class EmotePackReplacer extends ChatObserver{
 				continue;
 			}
 
-			this.replaceEmote(messageNode, child, emote);
+			this.replaceEmote(node, child, emote);
 		}
 	}
 
 	findFirstEmote(str){
+		const BEGINNING = -2;
+
 		let keys = Object.keys(this.emotes);
 		let firstEmote = keys.map((key) => {
-			let index = str.indexOf(` ${key} `);
+			let index;
+			if(str.startsWith(`${key} `) || str === key){
+				// only happen in nicochat
+				index = BEGINNING;
+			}else{
+				index = str.indexOf(` ${key} `);
+			}
 
 			if(index === -1 && str.endsWith(` ${key}`)){
 				index = str.length - key.length - 1;
@@ -46,7 +54,11 @@ class EmotePackReplacer extends ChatObserver{
 		}
 
 		// omit the beginning space
-		firstEmote[1] += 1;
+		if(firstEmote[1] == BEGINNING){
+			firstEmote[1] = 0;
+		}else{
+			firstEmote[1] += 1;
+		}
 
 		return firstEmote;
 	}
@@ -79,6 +91,28 @@ class EmotePackReplacer extends ChatObserver{
 	}
 }
 
+class EmotePackReplacer extends ChatObserver{
+	constructor(replacer){
+		super();
+		this.replacer = replacer;
+	}
+	processChatNode(node){
+		let message = $(node).find('span[ng-bind-html^="log.d"]');
+		let messageNode = message.get(0);
+		this.replacer.processChatNode(messageNode);
+	}
+}
+
+class EmotePackNicoReplacer extends NicoObserver{
+	constructor(replacer){
+		super();
+		this.replacer = replacer;
+	}
+	processChatNode(node){
+		this.replacer.processChatNode(node);
+	}
+}
+
 let getEmoteUrl = (id) => {
 	return new Promise((resolve, reject) => {
 		chrome.runtime.sendMessage({emotepack: 'getEmote', id: id}, (data) => {
@@ -87,12 +121,25 @@ let getEmoteUrl = (id) => {
 	});
 };
 
-let loadEmotePack = () => {
-	chrome.runtime.sendMessage({emotepack: 'getPacks'}, (list) => {
-		for(let item of list){
-			new EmotePackReplacer(item.emotes);
-		}
+let getPacks = () => {
+	return new Promise((resolve, reject) => {
+		chrome.runtime.sendMessage({emotepack: 'getPacks'}, (list) => {
+			resolve(list);
+		});
 	});
+};
+
+let loadEmotePack = async function(){
+	let list = await getPacks();
+	let settings = await Settings.get();
+
+	for(let item of list){
+		let replacer = new Replacer(item.emotes);
+		new EmotePackReplacer(replacer);
+		if(settings.emotepackNico){
+			new EmotePackNicoReplacer(replacer);
+		}
+	}
 };
 
 plugin('emotepack', loadEmotePack);

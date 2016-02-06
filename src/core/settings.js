@@ -42,6 +42,12 @@ class SettingsPage{
 				categories.set(category, []);
 			}
 
+			if(!metadata.no_disable){
+				let row = this.createCheckbox(metadata.description || metadata.name);
+				categories.get(category).push(row);
+				this.options.set(metadata.name, row.find('input'));
+			}
+
 			if(metadata.settings){
 				for(let key of Object.keys(metadata.settings)){
 					let value = metadata.settings[key];
@@ -49,12 +55,6 @@ class SettingsPage{
 					categories.get(category).push(row);
 					this.options.set(key, row.find('input'));
 				}
-			}
-
-			if(!metadata.no_disable){
-				let row = this.createCheckbox(metadata.description || metadata.name);
-				categories.get(category).push(row);
-				this.options.set(metadata.name, row.find('input'));
 			}
 		}
 
