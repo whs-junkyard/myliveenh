@@ -14,12 +14,16 @@ plugin('hoverpreview', () => {
 			let streamId = item.find('.roomtitle a').attr('href').match(/([0-9]+)$/)[0];
 
 			clearTimeout(this.__enh_hoverpreview_timer);
+			delete this.__enh_hoverpreview_canceled;
 			this.__enh_hoverpreview_timer = setTimeout(async function(){
 				let coverImage = item.find('.cover img');
 				let width = coverImage.width(), height = coverImage.height();
 				coverImage.hide();
 
 				let stream = await streamInfo(streamId);
+				if(this.__enh_hoverpreview_canceled){
+					return;
+				}
 
 				let id = `enh__hoverpreview_${ID++}`;
 				node.__enh_hoverpreview_id = id;
@@ -49,6 +53,7 @@ playerInstance.setup(${JSON.stringify(settings)});
 			let item = $(this);
 			clearTimeout(this.__enh_hoverpreview_timer);
 			item.find('.cover img').show();
+			this.__enh_hoverpreview_canceled = true;
 
 			if(this.__enh_hoverpreview_id){
 				injectScript(`
