@@ -1,0 +1,20 @@
+{
+	"presets": ["modern", "react"],
+	"plugins": [
+		"transform-class-properties",
+		"transform-async-to-generator",
+		"transform-runtime",
+		"transform-export-extensions"
+	],
+	"env": {
+		"development": {
+			"plugins": [["react-transform", {
+				"transforms": [{
+					"transform": "react-transform-hmr",
+					"imports": ["react"],
+					"locals": ["module"]
+				}]
+			}]]
+		}
+	}
+}
