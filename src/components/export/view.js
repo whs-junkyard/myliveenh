@@ -25,11 +25,16 @@ export default class View extends React.Component{
 	}
 
 	getMetadata(){
+		let emotes = {};
+
+		let i = 0;
+		for(let emote of this.props.emotes){
+			emotes[emote.name] = `${i++}.img`;
+		}
+
 		return {
 			'name': this.props.name || 'Untitled',
-			'emotes': this.props.emotes.map((node, index) => {
-				return `${index}.img`;
-			}).toJS(),
+			'emotes': emotes,
 		};
 	}
 
