@@ -1,0 +1,9 @@
+.addemote .input{
+	margin-bottom: 10px;
+}
+.addemote .label{
+	margin-bottom: 2px;
+}
+.addemote input:not([type="submit"]){
+	width: 100%;
+}

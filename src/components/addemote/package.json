@@ -1,0 +1,5 @@
+{
+	"name": "addemote",
+	"private": true,
+	"main": "view.js"
+}

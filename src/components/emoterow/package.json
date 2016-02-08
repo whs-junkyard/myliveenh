@@ -1,0 +1,5 @@
+{
+	"name": "emoterow",
+	"private": true,
+	"main": "view.js"
+}

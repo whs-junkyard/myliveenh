@@ -1,0 +1,30 @@
+.emote{
+	border-bottom: #646666 solid 1px;
+	padding: .2rem .4rem;
+	min-height: 30px;
+	line-height: 30px;
+}
+.emote:last-child{
+	border-bottom: none;
+}
+.emote .text{
+	padding-left: 40px;
+}
+.emote img{
+	vertical-align: middle;
+	margin-right: 10px;
+	display: block;
+	float: left;
+}
+.emote:after{
+	clear: both;
+	display: block;
+	content: "";
+}
+.emote .action{
+	float: right;
+	visibility: hidden;
+}
+.emote:hover .action{
+	visibility: visible;
+}

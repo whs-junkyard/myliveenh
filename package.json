@@ -11,6 +11,8 @@
   },
   "homepage": "https://github.com/whs/myliveenh#readme",
   "dependencies": {
+    "flexboxgrid": "^6.3.0",
+    "immutable": "^3.7.6",
     "jszip": "^2.5.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"

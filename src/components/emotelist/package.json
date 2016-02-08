@@ -1,0 +1,5 @@
+{
+	"name": "emotelist",
+	"private": true,
+	"main": "view.js"
+}

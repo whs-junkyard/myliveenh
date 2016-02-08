@@ -1,0 +1,5 @@
+{
+	"name": "export",
+	"private": true,
+	"main": "view.js"
+}
