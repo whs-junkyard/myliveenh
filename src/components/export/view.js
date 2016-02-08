@@ -7,6 +7,10 @@ export default class View extends React.Component{
 		state: null
 	};
 
+	shouldComponentUpdate(nextProps, nextState){
+		return nextState.state !== this.state.state;
+	}
+
 	readFile(blob){
 		return new Promise((resolve, reject) => {
 			let reader = new FileReader();

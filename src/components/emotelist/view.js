@@ -3,10 +3,14 @@ import EmoteRow from 'components/emoterow';
 import style from './style.css';
 
 export default class View extends React.Component{
+	shouldComponentUpdate(nextProps, nextState){
+		return nextProps.emotes !== this.props.emotes;
+	}
+
 	render(){
 		let emotes = this.props.emotes.map((item, id) => {
 			return (
-				<EmoteRow name={item.name} image={item.image} key={id} onDelete={() => {
+				<EmoteRow item={item} key={id} onDelete={() => {
 					this.props.onDelete(id);
 				}} onEdit={(name) => {
 					this.props.onEdit(id, name);
