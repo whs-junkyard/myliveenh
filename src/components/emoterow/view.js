@@ -2,12 +2,16 @@ import React from 'react';
 import style from './style.css';
 
 export default class View extends React.Component{
+	onChange = (e) => {
+		this.props.onEdit(e.target.value);
+	};
+
 	render(){
 		return (
 			<div className="emote">
 				<EmoteImage image={this.props.image} />
 				<div className="action"><button className="topcoat-button" onClick={this.props.onDelete}>x</button></div>
-				<div className="text">{this.props.name}</div>
+				<div className="text" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}><input type="text" className="topcoat-text-input" value={this.props.name} onChange={this.onChange} /></div>
 			</div>
 		);
 	}

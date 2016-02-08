@@ -20,17 +20,12 @@ export default class View extends React.Component{
 		});
 	}
 
-	getNumberedFile(){
-		let index = 0;
-		return this.props.emotes.map(() => {
-			return `${index++}.img`;
-		});
-	}
-
-	getMetadata(files){
+	getMetadata(){
 		return {
-			'name': this.props.name,
-			'emotes': files.toJS(),
+			'name': this.props.name || 'Untitled',
+			'emotes': this.props.emotes.map((node, index) => {
+				return `${index}.img`;
+			}).toJS(),
 		};
 	}
 
@@ -38,19 +33,13 @@ export default class View extends React.Component{
 		this.setState({state: 'Reading files..'});
 		let zip = new JSZip();
 		let dir = zip.folder('set');
-		let files = this.getNumberedFile();
-		dir.file('set.json', JSON.stringify(this.getMetadata(files)));
+		dir.file('set.json', JSON.stringify(this.getMetadata()));
 
-		let promises = [];
-
-		for(let [key, value] of files.entries()){
-			let promise = this.readFile(this.props.emotes.get(key)).then((function(filename, ab){
-				dir.file(filename, ab);
-			}).bind(this, value));
-			promises.push(promise);
-		}
-
-		await Promise.all(promises);
+		await Promise.all(this.props.emotes.map((node, index) => {
+			return this.readFile(node.image).then((ab) => {
+				dir.file(`${index}.img`, ab);
+			});
+		}).toJS());
 
 		let content = zip.generate({
 			type: 'base64'

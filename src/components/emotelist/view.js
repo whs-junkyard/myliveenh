@@ -4,13 +4,15 @@ import style from './style.css';
 
 export default class View extends React.Component{
 	render(){
-		let emotes = Array.from(this.props.emotes.entries()).map((item) => {
+		let emotes = this.props.emotes.map((item, id) => {
 			return (
-				<EmoteRow name={item[0]} image={item[1]} key={item[0]} onDelete={() => {
-					this.props.onDelete(item[0]);
+				<EmoteRow name={item.name} image={item.image} key={id} onDelete={() => {
+					this.props.onDelete(id);
+				}} onEdit={(name) => {
+					this.props.onEdit(id, name);
 				}} />
 			);
-		});
+		}).toJS();
 
 		return (
 			<div className="emotelist">
