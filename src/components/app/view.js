@@ -5,6 +5,7 @@ import AddEmote from 'components/addemote';
 import SetName from 'components/setname';
 import EmoteList from 'components/emotelist';
 import Export from 'components/export';
+import Import from 'components/import';
 import flexboxgrid from 'flexboxgrid';
 import style from './style.css';
 
@@ -36,6 +37,10 @@ export default class View extends React.Component{
 		this.setState({emotes: emotes});
 	};
 
+	onImport = (name, data) => {
+		this.setState({name: name, emotes: data});
+	};
+
 	render(){
 		return (
 			<div className="container">
@@ -48,7 +53,10 @@ export default class View extends React.Component{
 						</div>
 						<SetName name={this.state.name} onChange={this.onNameChange} />
 						<AddEmote onAddEmote={this.addEmote} />
-						<Export name={this.state.name} emotes={this.state.emotes} />
+						<div className="tool">
+							<Import onImport={this.onImport} />
+							<Export name={this.state.name} emotes={this.state.emotes} />
+						</div>
 					</div>
 					<div className="col-xs-12 col-md-8">
 						<EmoteList emotes={this.state.emotes} onDelete={this.onDelete} onEdit={this.onEdit} />
