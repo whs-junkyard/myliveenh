@@ -1,5 +1,9 @@
 export default class NicoObserver{
 	constructor(){
+		if(this.getTarget() === null){
+			return;
+		}
+		
 		this.observer = new MutationObserver(this.onMutated.bind(this));
 		this.observer.observe(this.getTarget(), {
 			childList: true,

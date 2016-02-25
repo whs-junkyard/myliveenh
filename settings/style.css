@@ -86,3 +86,8 @@
 	display: block;
 	float: left;
 }
+.emote:after{
+	clear: both;
+	display: block;
+	content: "";
+}

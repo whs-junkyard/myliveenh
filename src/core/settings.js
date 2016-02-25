@@ -152,7 +152,7 @@ class SettingsPage{
 		let emote = $(`
 <div class="emotepick">
 	<button class="topcoat-button--large">Load emotes pack</button>
-	<input type="file" type="application/zip" />
+	<input type="file" accept="application/zip" />
 </div>
 `)
 			.on('change', (e) => {

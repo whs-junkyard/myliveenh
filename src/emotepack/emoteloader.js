@@ -73,16 +73,15 @@ export default class EmoteLoader{
 			}
 
 			let blob = new Blob([file.asArrayBuffer()]);
-			let _emote = emote;
-			emotePromise.push(new Promise((resolve, reject) => {
+			emotePromise.push(new Promise((function(emote, resolve, reject){
 				let request = tx.objectStore('emotesFile').add(blob);
 				request.onsuccess = (e) => {
 					// save the id
-					this.manifest.emotes[_emote] = e.target.result;
+					this.manifest.emotes[emote] = e.target.result;
 					resolve(e.target.result);
 				};
 				request.onerror = reject;
-			}));
+			}).bind(this, emote)));
 		}
 
 		await Promise.all(emotePromise);
