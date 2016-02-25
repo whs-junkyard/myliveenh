@@ -1,0 +1,44 @@
+.enh__delayedban .mychat{
+	& .op0, & .op1, & .op2, & .op3, & .op4{
+		opacity: 1;
+		color: transparent;
+	}
+	&.dark{
+		& .op0{
+			text-shadow: rgba(255,255,255,.2) 0px 0px 5px;
+		}
+		& .op1{
+			text-shadow: rgba(255,255,255,.33) 0px 0px 4px;
+		}
+		& .op2{
+			text-shadow: rgba(255,255,255,.5) 0px 0px 3px;
+		}
+		& .op3{
+			text-shadow: rgba(255,255,255,.66) 0px 0px 2px;
+		}
+		& .op4{
+			text-shadow: rgba(255,255,255,.8) 0px 0px 1px;
+		}
+	}
+	&.light{
+		& .op0, & .op1, & .op2, & .op3{
+			text-shadow: rgba(0,0,0,0.2) 0px 0px 5px;
+		}
+
+		& .op0{
+			color: rgba(0,0,0,0);
+		}
+		& .op1{
+			color: rgba(0,0,0,0.15);
+		}
+		& .op2{
+			color: rgba(0,0,0,0.30);
+		}
+		& .op3{
+			color: rgba(0,0,0,0.45);
+		}
+		& .op4{
+			color: rgba(0,0,0,0.6);
+		}
+	}
+}

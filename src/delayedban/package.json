@@ -1,0 +1,14 @@
+{
+	"name": "delayedban",
+	"description": "เปลี่ยนการแสดงผล Delayed ban ให้ชัดขึ้น",
+	"category": "Chat",
+	"private": true,
+	"content_scripts": [
+		{
+			"matches": ["http://mylive.in.th/streams/*", "http://mylive.in.th/chat/*"],
+			"js": ["content_script.js"],
+			"css": ["content_script.css"],
+			"run_at": "document_end"
+		}
+	]
+}

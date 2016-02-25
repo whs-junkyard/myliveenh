@@ -13,6 +13,8 @@ import glob from 'glob-promise';
 import uglify from 'gulp-uglify/minifier';
 import uglifyJS from 'uglify-js';
 import cssnano from 'cssnano';
+import cssNesting from 'postcss-nesting';
+import cssColor from 'postcss-color-function';
 
 import chromeGenerator from './tools/chrome-manifest';
 import getBackgroundScripts from './tools/get-background';
@@ -21,7 +23,9 @@ import getContentScripts from './tools/get-content-script';
 const dest = 'build';
 const postcssConfig = () => {
 	return [
-		cssnano()
+		cssNesting(),
+		cssColor(),
+		cssnano(),
 	];
 };
 const webpackConfig = {
