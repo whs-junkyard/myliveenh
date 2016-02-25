@@ -21,24 +21,20 @@
 		}
 	}
 	&.light{
-		& .op0, & .op1, & .op2, & .op3{
-			text-shadow: rgba(0,0,0,0.2) 0px 0px 5px;
-		}
-
 		& .op0{
-			color: rgba(0,0,0,0);
+			text-shadow: rgba(0,0,0,.2) 0px 0px 5px;
 		}
 		& .op1{
-			color: rgba(0,0,0,0.15);
+			text-shadow: rgba(0,0,0,.33) 0px 0px 4px;
 		}
 		& .op2{
-			color: rgba(0,0,0,0.30);
+			text-shadow: rgba(0,0,0,.5) 0px 0px 3px;
 		}
 		& .op3{
-			color: rgba(0,0,0,0.45);
+			text-shadow: rgba(0,0,0,.66) 0px 0px 2px;
 		}
 		& .op4{
-			color: rgba(0,0,0,0.6);
+			text-shadow: rgba(0,0,0,.8) 0px 0px 1px;
 		}
 	}
 }
