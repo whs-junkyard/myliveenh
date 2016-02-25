@@ -23,7 +23,7 @@ class SettingsPage{
 			.click(async function(){
 				await self.save();
 				$('<div class="saved">กำลังโหลดการตั้งค่าใหม่</div>').appendTo(self.target);
-				alert('รีโหลดแท็บ mylive เพื่อใช้การตั้งค่าใหม่');
+				alert('รีโหลดแท็บ MyLive เพื่อใช้การตั้งค่าใหม่');
 
 				setTimeout(() => {
 					chrome.runtime.reload();

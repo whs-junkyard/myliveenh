@@ -4,6 +4,14 @@
 	"category": "หน้าแรก",
 	"default_enabled": false,
 	"private": true,
+	"settings": {
+		"previewDelay": {
+			"default": 1,
+			"type": "number",
+			"min": 1,
+			"label": "Delay ก่อนเริ่มเล่นวิดีโอชั่วคราว (วินาที)"
+		}
+	},
 	"content_scripts": [
 		{
 			"matches": ["http://mylive.in.th/"],

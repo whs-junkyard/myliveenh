@@ -2,11 +2,13 @@ import $ from 'jquery';
 import streamInfo from 'core/streaminfo';
 import injectScript from 'core/injectscript';
 import plugin from 'core/plugin';
+import Settings from 'settings';
 
-let DELAY = 1000;
 let ID = 0;
 
-plugin('hoverpreview', () => {
+plugin('hoverpreview', async function(){
+	let settings = await Settings.get();
+
 	$('#mainpagebody')
 		.on('mouseenter', '.thumb', function(){
 			let item = $(this);
@@ -51,7 +53,7 @@ playerInstance.on('displayClick', function(){
 	window.location = ${JSON.stringify(streamUrl)};
 });
 })();`);
-			}, DELAY);
+			}, settings.previewDelay * 1000);
 		})
 		.on('mouseleave', '.thumb', function(){
 			let item = $(this);
