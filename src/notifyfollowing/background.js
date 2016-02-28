@@ -26,7 +26,7 @@ export let loadFollow = async function(){
 				'type': 'basic',
 				'iconUrl': room.img,
 				'title': room.title,
-				'message': room.sname,
+				'message': room.owner,
 				'contextMessage': room.tags.map(function(item){
 					return '#' + item;
 				}).join(' '),
@@ -72,4 +72,3 @@ chrome.notifications.onButtonClicked.addListener((notify) => {
 		url: notify
 	});
 });
-
