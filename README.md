@@ -61,7 +61,7 @@ Each plugin are CommonJS packages located in `src/`. To create plugins:
   - `http://*.mylive.in.th/*``
   - `storage`
 - `content_scripts`: See [content script](https://developer.chrome.com/extensions/content_scripts) in Chrome docs. The [build script](tools/merge-content-script.js) will merge items with same permissions automatically.
-  - Additionally, `"stop_angular": true` can be listed alongside `js` to disable angular for that page. To resume angular execution, pass `true` as the third argument to `plugin`. Note that multiple `stop_angular` in one page is currently not supported.
+  - Additionally, `"stop_angular": true` can be listed alongside `js` to disable angular for that page. To resume angular execution, pass `true` as the third argument to `plugin`.
 
 The settings page and loader also collect additional data:
 

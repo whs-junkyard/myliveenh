@@ -1,7 +1,6 @@
 {
 	"name": "settingsmenu",
 	"description": "เพิ่มเมนู settings ใน chat option",
-
 	"no_disable": true,
 	"content_scripts": [
 		{

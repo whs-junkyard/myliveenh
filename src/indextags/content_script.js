@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import resume from 'core/resume_angular';
 import plugin from 'core/plugin';
 
 plugin('indextags', () => {
@@ -7,6 +6,6 @@ plugin('indextags', () => {
 
 	var tagsNode = $('<a href="/streams/[[room.no]]" class="enh__tags"><span class="label label-default" ng-repeat="tag in room.tags" ng-bind="tag"></span></a>')
 	tagsNode.insertAfter('.roomtitle');
-
-	resume();
-}, true);
+}, {
+	resume_angular: true
+});

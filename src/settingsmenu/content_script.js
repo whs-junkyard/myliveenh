@@ -1,9 +1,7 @@
 import $ from 'jquery';
-import resume from 'core/resume_angular';
+import plugin from 'core/plugin';
 
-if(typeof window.__enh_settingsmenu === 'undefined'){
-	window.__enh_settingsmenu = true;
-
+plugin('settingsmenu', () => {
 	let target = $('.boxsetup .block');
 
 	$('<div class="head">MyLive Enhancements</div>')
@@ -16,6 +14,7 @@ if(typeof window.__enh_settingsmenu === 'undefined'){
 
 	$('<div class="line"><a href="http://portfolio.whs.in.th/donate" target="_blank"><i class="fa fa-money" /> Donate</a></div>')
 		.appendTo(target);
-
-	resume();
-}
+}, {
+	resume_angular: true,
+	always_load: true
+});
