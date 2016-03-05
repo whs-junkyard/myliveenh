@@ -1,19 +1,16 @@
 import $ from 'jquery';
 import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css';
 import Settings from 'settings';
-import Database from 'emotepack/database';
-import EmoteLoader from 'worker!emotepack/emoteloader';
+import EmoteSettings from 'emotepack/emotesettings';
 
 const loader = require.context('../', true, /package\.json$/);
 
 class SettingsPage{
 	options = new Map();
 
-	constructor(target, emotesTarget){
+	constructor(target){
 		this.target = $(target);
-		this.emotesTarget = $(emotesTarget);
 		this.renderOptions();
-		this.renderEmotes();
 		this.loadSettings();
 		let self = this;
 
@@ -146,105 +143,7 @@ class SettingsPage{
 		}
 		return Settings.set(settings);
 	}
-
-	renderEmotes(){
-		let self = this;
-		let emote = $(`
-<div class="emotepick">
-	<button class="topcoat-button--large">Load emotes pack</button>
-	<input type="file" accept="application/zip" />
-</div>
-`)
-			.on('change', (e) => {
-				if(e.target.files.length === 0){
-					return;
-				}
-
-				emote.find('button').prop('disabled', true);
-
-				let file = e.target.files[0];
-				if(!this.emoteWorker){
-					this.emoteWorker = new EmoteLoader();
-					this.emoteWorker.onmessage = async function(msg){
-						if(msg.data){
-							alert(msg.data);
-						}
-						await self.refreshEmote();
-						emote.find('button').prop('disabled', false);
-					};
-				}
-				this.emoteWorker.postMessage(file);
-			})
-			.appendTo(this.emotesTarget);
-
-		this.emoteList = $('<div id="emotelist" />')
-			.appendTo(this.emotesTarget);
-		this.refreshEmote();
-	}
-
-	async refreshEmote(){
-		this.emoteList.empty();
-		let loading = $('<div class="loading">Loading emotes...</div>')
-			.appendTo(this.emoteList);
-
-		let self = this;
-		let database = await Database();
-		let tx = database.transaction(['emotes', 'emotesFile']);
-
-		let request = tx.objectStore('emotes').getAll();
-		request.onsuccess = (e) => {
-			let list = e.target.result;
-			for(let item of list){
-				let head = $('<div class="list-head" />')
-					.text(item.name)
-					.appendTo(this.emoteList);
-
-				$('<button class="topcoat-button">Remove</button>')
-					.click(async function(){
-						await self.removeEmotePack(item.name);
-						self.refreshEmote();
-					})
-					.appendTo(head);
-
-				for(let emote in item.emotes){
-					let row = $('<div class="emote" />')
-						.appendTo(this.emoteList);
-
-					$('<div class="text" />')
-						.text(emote)
-						.appendTo(row);
-
-					let request = tx.objectStore('emotesFile')
-						.get(item.emotes[emote]);
-					request.onsuccess = (e) => {
-						let url = window.URL.createObjectURL(e.target.result);
-						$('<img />').attr('src', url).prependTo(row);
-					};
-				}
-			}
-
-			loading.remove();
-		};
-	}
-
-	async removeEmotePack(name){
-		let database = await Database();
-		return new Promise((resolve, reject) => {
-			let tx = database.transaction(['emotes', 'emotesFile'], 'readwrite');
-			let store = tx.objectStore('emotes');
-
-			let request = store.get(name);
-			request.onsuccess = (e) => {
-				let item = e.target.result;
-				for(let emote in item.emotes){
-					tx.objectStore('emotesFile').delete(item.emotes[emote]);
-				}
-
-				let request = store.delete(name);
-				request.onsuccess = resolve;
-			};
-		});
-	}
 }
 
-export default new SettingsPage($('#target'), $('#emotes'));
+new EmoteSettings($('#emotes'));
+export default new SettingsPage($('#target'));

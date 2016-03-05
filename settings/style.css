@@ -72,6 +72,9 @@ a{
 .list-head button{
 	float: right;
 }
+.list-status{
+	margin-right: 5px;
+}
 .emote{
 	border-bottom: #646666 solid 1px;
 	padding: .2rem .4rem;
