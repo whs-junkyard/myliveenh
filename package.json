@@ -1,6 +1,7 @@
 {
   "name": "myliveenh",
-  "version": "2.3.1",
+  "version": "2.4",
+  "license": "Apache-2.0",
   "description": "Enhancements to MyLive.in.th",
   "repository": {
     "type": "git",

@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import resume from 'core/resume_angular';
 import plugin from 'core/plugin';
 
 plugin('delayedban', () => {
