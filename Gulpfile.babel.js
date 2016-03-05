@@ -55,7 +55,7 @@ const webpackConfig = {
 	postcss: postcssConfig
 };
 
-gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build', 'build-settings']);
+gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build', 'build-settings', 'build-license']);
 gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'build-js']);
 
 gulp.task('generate-chrome-manifest', async function(){
@@ -140,6 +140,23 @@ gulp.task('build-settings', () => {
 	});
 
 	return gulp.src('src/core/settings.js')
+		.pipe(named())
+		.pipe(webpack(config))
+		.pipe(gulp.dest(path.join(dest, 'settings')));
+});
+
+gulp.task('build-license', () => {
+	let config = deepcopy(webpackConfig);
+	config.module.loaders.push({
+		test: /\.css$/,
+		loaders: ['style-loader', 'css-loader'],
+	});
+	config.module.loaders.push({
+		test: /\.(eot|ttf|svg|otf)$/,
+		loader: 'file-loader',
+	});
+
+	return gulp.src('src/core/license.js')
 		.pipe(named())
 		.pipe(webpack(config))
 		.pipe(gulp.dest(path.join(dest, 'settings')));
