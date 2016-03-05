@@ -1,0 +1,14 @@
+{
+	"name": "core_stop_chat_bootstrap",
+	"no_disable": true,
+	"content_scripts": [
+		{
+			"matches": ["http://mylive.in.th/streams/*", "http://mylive.in.th/chat/*"],
+			"js": ["content_script.js"],
+			"run_at": "document_start",
+			"stop_angular": true
+		}
+	],
+
+	"private": true
+}
