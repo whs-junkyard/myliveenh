@@ -9,7 +9,8 @@
 			"default": 5,
 			"type": "number",
 			"min": 0,
-			"label": "อัพเดตทุกๆ (นาที) ระบุ 0 เพื่อปิด"
+			"label": "อัพเดตทุกๆ (นาที)",
+			"help_text": "ระบุ 0 เพื่อปิด"
 		},
 		"notifySound": {
 			"default": false,

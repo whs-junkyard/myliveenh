@@ -8,6 +8,7 @@
 - default: build for development
 - watch: auto compile files on changes. Does not include files used in settings page
 - release: build, compress and zip release. Cleaning the build directory (`rm -rf build`) before running this is highly recommended.
+- build-emoji-db: update <src/emojipicker/emoji.json>
 
 ## Developing new plugins
 
@@ -65,6 +66,7 @@ Each plugin are CommonJS packages located in `src/`. To create plugins:
 
 The settings page and loader also collect additional data:
 
+- `description2` (String): Help text
 - `no_disable` (Boolean): Hide disable option from settings page. This is for core modules only.
 - `settings` (Object): Setting options. The enable/disable option is automatically generated, this is for additional options.
   - See [notifyfollowing](src/notifyfollowing/package.json) for example

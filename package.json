@@ -20,6 +20,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "css-loader": "^0.23.1",
     "deepcopy": "^0.6.1",
+    "emojione": "^2.1.1",
     "file-loader": "^0.8.5",
     "glob": "^7.0.0",
     "glob-promise": "^1.0.6",

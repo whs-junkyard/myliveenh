@@ -5,11 +5,8 @@ const TARGET = 'mylivechat2.js';
 
 let onMutation = function(records){
 	for(let record of records){
-		if(record.target.tagName != 'HEAD'){
-			return;
-		}
 		if(record.target.tagName == 'BODY'){
-			// ensure that we will always disconnect even if detection fail
+			// failsafe
 			observer.disconnect();
 			return;
 		}
@@ -20,8 +17,7 @@ let onMutation = function(records){
 				console.log('[L+] mylivechat2 found');
 				observer.disconnect();
 				// this script try to identify angular.bootstrap(null, ['chat']) call
-				// (the call in question is in fact, useless, as ng-app is already used to
-				// initialize chat module.)
+				// the call is replacable by existing ng-app call
 				injectScript(`(function(){
 					var bootstrap = angular.bootstrap;
 					angular.bootstrap = function(){

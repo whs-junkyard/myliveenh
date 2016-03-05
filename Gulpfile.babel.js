@@ -19,6 +19,7 @@ import cssColor from 'postcss-color-function';
 import chromeGenerator from './tools/chrome-manifest';
 import getBackgroundScripts from './tools/get-background';
 import getContentScripts from './tools/get-content-script';
+import emojiDB from './tools/emojidb';
 
 const dest = 'build';
 const postcssConfig = () => {
@@ -61,7 +62,7 @@ gulp.task('build', ['build-background', 'build-css', 'build-content-script', 'bu
 gulp.task('generate-chrome-manifest', async function(){
 	return file(
 		'manifest.json',
-		JSON.stringify(await chromeGenerator(), null, '\t'),
+		JSON.stringify(await chromeGenerator()),
 		{src: true}
 	).pipe(gulp.dest(dest));
 });
@@ -192,6 +193,14 @@ gulp.task('build-js', (cb) => {
 			.pipe(gulp.dest(dest))
 			.on('end', cb);
 	});
+});
+
+gulp.task('build-emoji-db', () => {
+	return file(
+		'emoji.json',
+		JSON.stringify(emojiDB()),
+		{src: true}
+	).pipe(gulp.dest('src/emojipicker/'));
 });
 
 gulp.task('copy', () => {

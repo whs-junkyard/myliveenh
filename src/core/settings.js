@@ -42,6 +42,11 @@ class SettingsPage{
 
 			if(!metadata.no_disable){
 				let row = this.createCheckbox(metadata.description || metadata.name);
+				if(metadata.description2){
+					$('<div class="label2" />')
+						.text(metadata.description2)
+						.appendTo(row);
+				}
 				categories.get(category).push(row);
 				this.options.set(metadata.name, row.find('input'));
 				row.find('input').on('change', function(){
@@ -55,6 +60,13 @@ class SettingsPage{
 				for(let key of Object.keys(metadata.settings)){
 					let value = metadata.settings[key];
 					let row = this.createInput(value);
+
+					if(value.help_text){
+						$('<div class="label2" />')
+							.text(value.help_text)
+							.appendTo(row);
+					}
+
 					categories.get(category).push(row);
 					this.options.set(key, row.find('input'));
 					children.push(row.find('input'));
@@ -75,7 +87,7 @@ class SettingsPage{
 	}
 
 	createCheckbox(name){
-		let row = $('<div />');
+		let row = $('<div class="option" />');
 		let label = $('<label class="topcoat-switch" />');
 		label.prepend('<div class="topcoat-switch__toggle" />');
 		let checkbox = $('<input type="checkbox" class="topcoat-switch__input" />')
@@ -91,7 +103,7 @@ class SettingsPage{
 			return this.createCheckbox(props.label);
 		}
 
-		let row = $('<div />');
+		let row = $('<div class="option" />');
 		let label = $('<label />');
 		$('<span class="label" />')
 			.text(props.label)

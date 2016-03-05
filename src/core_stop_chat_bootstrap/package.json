@@ -3,7 +3,7 @@
 	"no_disable": true,
 	"content_scripts": [
 		{
-			"matches": ["http://mylive.in.th/streams/*", "http://mylive.in.th/chat/*"],
+			"matches": ["http://mylive.in.th/chat/*"],
 			"js": ["content_script.js"],
 			"run_at": "document_start",
 			"stop_angular": true
