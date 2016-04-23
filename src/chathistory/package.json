@@ -1,0 +1,13 @@
+{
+	"name": "chathistory",
+	"description": "กดลูกศรขึ้น/ลงเพื่อย้อน chat ที่ส่ง",
+	"category": "Chat",
+	"private": true,
+	"content_scripts": [
+		{
+			"matches": ["http://mylive.in.th/streams/*", "http://mylive.in.th/chat/*"],
+			"js": ["content_script.js"],
+			"run_at": "document_end"
+		}
+	]
+}
