@@ -24,6 +24,5 @@ class ChatSoundObserver extends ChatObserver{
 
 plugin('chatsound', async function(){
 	let settings = await Settings.get();
-	console.log(settings);
 	new ChatSoundObserver(settings.chatSoundVolume);
 });

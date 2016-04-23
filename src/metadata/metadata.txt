@@ -1,0 +1,34 @@
+(function(){
+	'use strict';
+
+	let element = document.getElementById('enh__streammeta');
+	let lastMeta = {};
+	let paused = false;
+
+	playerInstance.on('meta', (meta) => {
+		if(meta && meta.type === 'meta'){
+			Object.assign(lastMeta, meta.metadata);
+
+			if(paused){
+				return;
+			}
+
+			let keys = Object.keys(lastMeta).sort();
+			let text = [];
+
+			for(let key in keys){
+				key = keys[key];
+				text.push(`${key}: ${lastMeta[key]}`);
+			}
+
+			element.textContent = 'MyLiveEnh Stream Metadata\nHover to expand\n'
+				+ text.join('\n')
+				+ '\nDoubleclick to pause\nDisable at MyLiveEnh settings';
+		}
+	});
+
+	element.addEventListener('dblclick', () => {
+		paused = !paused;
+		element.classList.toggle('enh__paused');
+	}, false);
+})();
