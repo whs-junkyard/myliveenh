@@ -5,7 +5,7 @@ import injectScript from 'core/injectscript';
 plugin('chathistory', () => {
 	let history = [];
 	let historyPtr = 0;
-	let key = 'enh_' + Math.random().toString();
+	let key = 'enh_chat_history_' + Math.random().toString();
 
 	injectScript(`
 window.addEventListener('message', (e) => {

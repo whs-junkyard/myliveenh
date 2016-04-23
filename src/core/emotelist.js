@@ -8,10 +8,10 @@ export default () => {
 	}
 
 	return window.__enh_emotelist_promise = new Promise((resolve, reject) => {
+		let key = 'enh_core_emotelist_' + Math.random().toString();
 		injectScript(`
 window.postMessage({
-	type: 'EMOTE_STEALER',
-	text: JSON.stringify(emolist)
+	${JSON.stringify(key)}: emolist
 }, '*');
 		`);
 
@@ -20,8 +20,8 @@ window.postMessage({
 				return;
 			}
 
-			if(e.data.type && e.data.type == 'EMOTE_STEALER'){
-				resolve(JSON.parse(e.data.text));
+			if(e.data[key]){
+				resolve(e.data[key]);
 				window.removeEventListener('message', event, false);
 			}
 		};
