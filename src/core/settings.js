@@ -113,7 +113,7 @@ class SettingsPage{
 			.attr('type', props.type)
 			.prependTo(label);
 
-		const validProps = ['min', 'max', 'pattern'];
+		const validProps = ['min', 'max', 'pattern', 'step'];
 		for(var prop of validProps){
 			if(props[prop] !== undefined){
 				input.attr(prop, props[prop]);
@@ -149,7 +149,7 @@ class SettingsPage{
 			}else{
 				settings[key] = field.val();
 				if(field.attr('type') == 'number'){
-					settings[key] = parseInt(settings[key], 10);
+					settings[key] = parseFloat(settings[key], 10);
 				}
 			}
 		}
