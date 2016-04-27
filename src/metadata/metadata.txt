@@ -8,27 +8,34 @@
 	playerInstance.on('meta', (meta) => {
 		if(meta && meta.type === 'meta'){
 			Object.assign(lastMeta, meta.metadata);
-
-			if(paused){
-				return;
-			}
-
-			let keys = Object.keys(lastMeta).sort();
-			let text = [];
-
-			for(let key in keys){
-				key = keys[key];
-				text.push(`${key}: ${lastMeta[key]}`);
-			}
-
-			element.textContent = 'MyLiveEnh Stream Metadata\nHover to expand\n'
-				+ text.join('\n')
-				+ '\nDoubleclick to pause\nDisable at MyLiveEnh settings';
 		}
 	});
 
+	let update = () => {
+		let keys = Object.keys(lastMeta).sort();
+		let text = [];
+
+		for(let key in keys){
+			key = keys[key];
+			text.push(`${key}: ${lastMeta[key]}`);
+		}
+
+		element.textContent = 'MyLiveEnh Stream Metadata\nHover to expand\n'
+			+ text.join('\n')
+			+ '\nDoubleclick to pause\nDisable at MyLiveEnh settings';
+	};
+
+	let interval = setInterval(update, 1000);
+
 	element.addEventListener('dblclick', () => {
 		paused = !paused;
+
+		if(paused){
+			clearInterval(interval);
+		}else{
+			setInterval(update, 1000);
+		}
+
 		element.classList.toggle('enh__paused');
 	}, false);
 })();
