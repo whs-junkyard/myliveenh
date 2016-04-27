@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "jquery": "^2.2.3",
-    "jszip": "^2.5.0",
+    "jszip": "^3.0.0",
     "topcoat": "^0.7.5"
   }
 }

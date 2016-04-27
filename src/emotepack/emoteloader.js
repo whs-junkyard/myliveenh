@@ -22,10 +22,10 @@ export default class EmoteLoader{
 		});
 	}
 
-	loadFromZip(blob){
-		this.zip = new JSZip(blob);
+	async loadFromZip(blob){
+		this.zip = await JSZip.loadAsync(blob);
 		this.zip = this.findZipRoot();
-		this.loadManifest();
+		await this.loadManifest();
 		return this.copyFiles();
 	}
 
@@ -47,12 +47,12 @@ export default class EmoteLoader{
 		return this.zip.folder(rootFolders[0].name);
 	}
 
-	loadManifest(){
+	async loadManifest(){
 		let file = this.zip.file(MANIFEST);
 		if(!file){
 			throw new Error('manifest file not found!');
 		}
-		this.manifest = JSON.parse(file.asText());
+		this.manifest = JSON.parse(await file.async('string'));
 		if(!this.manifest.name){
 			throw new Error('set name not defined');
 		}
@@ -60,7 +60,6 @@ export default class EmoteLoader{
 
 	async copyFiles(){
 		let database = await Database();
-		let tx = database.transaction(['emotes', 'emotesFile'], 'readwrite')
 
 		let emotePromise = [];
 		for(let emote in this.manifest.emotes){
@@ -72,21 +71,28 @@ export default class EmoteLoader{
 				continue;
 			}
 
-			let blob = new Blob([file.asArrayBuffer()]);
-			emotePromise.push(new Promise((function(emote, resolve, reject){
-				let request = tx.objectStore('emotesFile').add(blob);
-				request.onsuccess = (e) => {
-					// save the id
-					this.manifest.emotes[emote] = e.target.result;
-					resolve(e.target.result);
-				};
-				request.onerror = reject;
-			}).bind(this, emote)));
+			let promise = file.async('arraybuffer').then(((emote, buffer) => {
+				let blob = new Blob([buffer]);
+
+				return new Promise((resolve, reject) => {
+					let tx = database.transaction(['emotesFile'], 'readwrite');
+					let request = tx.objectStore('emotesFile').add(blob);
+					request.onsuccess = (e) => {
+						// save the id
+						this.manifest.emotes[emote] = e.target.result;
+						resolve(e.target.result);
+					};
+					request.onerror = reject;
+				});
+			}).bind(this, emote));
+
+			emotePromise.push(promise);
 		}
 
 		await Promise.all(emotePromise);
 
 		await new Promise((resolve, reject) => {
+			let tx = database.transaction(['emotes'], 'readwrite');
 			let request = tx.objectStore('emotes').add(this.manifest);
 			request.onsuccess = resolve;
 			request.onerror = reject;
