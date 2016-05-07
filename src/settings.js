@@ -13,7 +13,9 @@ class Settings{
 	constructor(){
 		this.loadModuleDefault();
 
-		chrome.storage.sync.get('settings', (data) => {
+		this.area = chrome.storage.sync || chrome.storage.local;
+
+		this.area.get('settings', (data) => {
 			if(data.settings){
 				Object.assign(this._settings, JSON.parse(data.settings));
 			}
@@ -59,7 +61,7 @@ class Settings{
 	set(settings){
 		this._settings = settings;
 		return new Promise((resolve, reject) => {
-			chrome.storage.sync.set({
+			this.area.set({
 				settings: JSON.stringify(this._settings)
 			}, () => {
 				if(chrome.runtime.lastError){

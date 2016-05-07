@@ -15,6 +15,10 @@ let generate = async function(){
 			'128': 'data/icon.png',
 		},
 		'options_page': 'settings/index.html',
+		'options_ui': {
+			page: 'settings/index.html',
+			open_in_tab: true,
+		},
 		'content_scripts': [],
 		'background': {
 			'scripts': ['background.js'],
@@ -28,6 +32,13 @@ let generate = async function(){
 		'web_accessible_resources': [
 			'settings/index.html',
 		],
+
+		// firefox
+		'applications': {
+			'gecko': {
+				id: 'myliveenh@cupco.de'
+			}
+		}
 	};
 
 	for(let manifestPath of subpackages){
