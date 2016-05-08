@@ -42,7 +42,7 @@ a{
 .topcoat-text-input{
 	width: 56px;
 }
-#target, #emotes{
+#target, .col{
 	width: 50%;
 }
 .emotepick{
@@ -127,4 +127,17 @@ pre.license:focus{
 	color: #fff;
 	border: 1px solid #0036ff;
 	box-shadow: 0 0 0 2px #6fb5f1;
+}
+
+table{
+	border-collapse: collapse;
+	width: 100%;
+}
+th, td{
+	border: 1px solid #303233;
+	padding: 2px 5px;
+}
+th{
+	background-color: #595b5b;
+	box-shadow: inset 0 1px #727373;
 }

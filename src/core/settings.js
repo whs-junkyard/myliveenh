@@ -12,6 +12,7 @@ class SettingsPage{
 		this.target = $(target);
 		this.renderOptions();
 		this.loadSettings();
+		this.loadDonate();
 		let self = this;
 
 		$('<div class="save"><button class="topcoat-button--large--cta">Save</button></div>')
@@ -154,6 +155,24 @@ class SettingsPage{
 			}
 		}
 		return Settings.set(settings);
+	}
+
+	async loadDonate(){
+		let donate = await (fetch('https://myliveenh.cupco.de/donate.json').then((data) => data.json()));
+		let tbody = $('#donate tbody');
+
+		for(let item of donate){
+			let row = $('<tr></tr>');
+			$('<td />').text(item.name).appendTo(row);
+
+			if(item.value === null){
+				$('<td />').text('').appendTo(row);
+			}else{
+				$('<td />').text(item.value).appendTo(row);
+			}
+
+			row.appendTo(tbody);
+		}
 	}
 }
 

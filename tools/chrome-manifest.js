@@ -30,9 +30,7 @@ let generate = async function(){
 			'http://*.mylive.in.th/*',
 			'storage',
 		],
-		'web_accessible_resources': [
-			'settings/index.html',
-		],
+		web_accessible_resources: [],
 
 		// firefox
 		'applications': {
