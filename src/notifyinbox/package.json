@@ -1,21 +1,21 @@
 {
-	"name": "notifyfollowing",
-	"description": "แจ้งเตือนคนที่ follow",
+	"name": "notifyinbox",
+	"description": "แจ้งเตือนข้อความ",
 
 	"category": "แจ้งเตือน",
 	"no_disable": true,
 	"settings": {
-		"notifyFollow": {
-			"default": 5,
+		"notifyInbox": {
+			"default": 15,
 			"type": "number",
 			"min": 0,
-			"label": "อัพเดต follow ทุกๆ (นาที)",
+			"label": "อัพเดต inbox ทุกๆ (นาที)",
 			"help_text": "ระบุ 0 เพื่อปิด"
 		},
-		"notifySound": {
+		"notifyInboxSound": {
 			"default": false,
 			"type": "boolean",
-			"label": "เล่นเสียงแจ้งเตือน follow"
+			"label": "เล่นเสียงแจ้งเตือน inbox"
 		}
 	},
 

@@ -76,5 +76,6 @@ chrome.notifications.onClicked.addListener((id) => {
 		chrome.tabs.create({
 			url: metadata[id]
 		});
+		chrome.notifications.clear(id);
 	}
 });
