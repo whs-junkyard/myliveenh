@@ -4,6 +4,7 @@
 	let element = document.getElementById('enh__streammeta');
 	let lastMeta = {};
 	let paused = false;
+	let bannedKeys = ['Server'];
 
 	playerInstance.on('meta', (meta) => {
 		if(meta && meta.type === 'meta'){
@@ -17,12 +18,15 @@
 
 		for(let key in keys){
 			key = keys[key];
+			if(bannedKeys.includes(key)){
+				continue;
+			}
 			text.push(`${key}: ${lastMeta[key]}`);
 		}
 
 		element.textContent = 'MyLiveEnh Stream Metadata\nHover to expand\n'
 			+ text.join('\n')
-			+ '\nDoubleclick to pause\nDisable at MyLiveEnh settings';
+			+ '\nDouble click to pause\nDisable at MyLiveEnh settings';
 	};
 
 	let interval = setInterval(update, 1000);
