@@ -8,6 +8,7 @@ import Following from 'core/following';
 
 const alarmName = 'notify';
 const sound = new Audio('data/notify.ogg');
+let metadata = {};
 
 export let createAlarm = (duration) => {
 	chrome.alarms.create(alarmName, {
@@ -21,19 +22,19 @@ export let loadFollow = async function(){
 	let newRooms = await following.get();
 	for(let room of newRooms){
 		chrome.notifications.create(
-			`http://mylive.in.th/streams/${room.no}`,
+			null,
 			{
 				'type': 'basic',
 				'iconUrl': room.img,
 				'title': room.title,
 				'message': room.owner,
-				'contextMessage': room.tags.map(function(item){
-					return '#' + item;
-				}).join(' '),
-				'buttons': [{'title': 'Watch'}],
+				'contextMessage': room.tags.join(', '),
 				'eventTime': room.startstamp*1000,
+				isClickable: true,
 			},
-			function(){}
+			function(id){
+				metadata[id] = `http://mylive.in.th/streams/${room.no}`;
+			}
 		);
 	}
 
@@ -46,7 +47,7 @@ export let loadFollow = async function(){
 
 window.loadFollow = loadFollow;
 
-chrome.runtime.onInstalled.addListener(() => {
+let setAlarm = () => {
 	chrome.alarms.get(alarmName, async function(alarm){
 		if(!alarm){
 			let settings = await Settings.get();
@@ -57,18 +58,23 @@ chrome.runtime.onInstalled.addListener(() => {
 			createAlarm(settings.notifyFollow);
 		}
 	});
-});
+};
+
+chrome.runtime.onInstalled.addListener(setAlarm);
+chrome.runtime.onStartup.addListener(setAlarm);
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-	if(alarm.name != 'notify'){
+	if(alarm.name != alarmName){
 		return;
 	}
 
 	loadFollow();
 });
 
-chrome.notifications.onButtonClicked.addListener((notify) => {
-	chrome.tabs.create({
-		url: notify
-	});
+chrome.notifications.onClicked.addListener((id) => {
+	if(metadata[id]){
+		chrome.tabs.create({
+			url: metadata[id]
+		});
+	}
 });

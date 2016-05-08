@@ -2,7 +2,7 @@
 	"name": "notifyfollowing",
 	"description": "แจ้งเตือนคนที่ follow",
 
-	"category": "เตือน Follow",
+	"category": "แจ้งเตือน",
 	"no_disable": true,
 	"settings": {
 		"notifyFollow": {
