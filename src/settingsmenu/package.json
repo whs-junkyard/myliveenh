@@ -2,6 +2,7 @@
 	"name": "settingsmenu",
 	"description": "เพิ่มเมนู settings ใน chat option",
 	"no_disable": true,
+	"background": ["background.js"],
 	"content_scripts": [
 		{
 			"matches": ["http://mylive.in.th/streams/*", "http://mylive.in.th/chat/*"],

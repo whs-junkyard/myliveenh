@@ -11,6 +11,7 @@ let generate = async function(){
 		'name': 'MyLive Enhancements 2',
 		'version': mainManifest.version,
 		'description': mainManifest.description,
+		'minimum_chrome_version': "42",
 		'icons': {
 			'128': 'data/icon.png',
 		},

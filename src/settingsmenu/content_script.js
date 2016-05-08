@@ -10,10 +10,11 @@ plugin('settingsmenu', () => {
 	$('<div class="line"><a href="https://myliveenh.cupco.de" target="_blank" class="btn btn-link btn-sm"><span class="fa fa-globe" /> Homepage</a></div>')
 		.appendTo(target);
 
-	$('<div class="line"><a target="_blank" class="btn btn-link btn-sm"><span class="fa fa-gears" /> ตั้งค่า</a></div>')
-		.appendTo(target)
-		.find('a')
-			.attr('href', chrome.runtime.getURL(chrome.runtime.getManifest().options_page));
+	$('<div class="line"><button id="enh__settingsbtn" class="btn btn-link btn-sm"><span class="fa fa-gears" /> ตั้งค่า</button></div>')
+		.appendTo(target);
+	$(document).on('click', '#enh__settingsbtn', () => {
+		chrome.runtime.sendMessage({settingsmenu: 'settings'});
+	});
 
 	$('<div class="line"><a href="http://portfolio.whs.in.th/donate-th" target="_blank" class="btn btn-link btn-sm"><span class="fa fa-money" /> Donate</a></div>')
 		.appendTo(target);
