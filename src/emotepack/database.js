@@ -5,7 +5,7 @@ export default () => {
 			let db = e.target.result;
 			db.createObjectStore('emotes', {keyPath: 'name'});
 			db.createObjectStore('emotesFile', {
-				autoIncrement: true
+				autoIncrement: true,
 			});
 		};
 		db.onsuccess = (e) => {

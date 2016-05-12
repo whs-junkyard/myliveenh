@@ -17,7 +17,6 @@ export default class Following{
 	async get(){
 		let list = await this._fetchRooms();
 		let roomIds = [];
-		let knownRoom = this.knownRoom;
 		let newRooms = [];
 
 		for(let room of list){

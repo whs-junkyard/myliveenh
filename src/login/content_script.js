@@ -10,7 +10,7 @@ plugin('login', () => {
 		let loginWnd = $(loginCode).appendTo('body');
 
 		loginWnd.click((e) => {
-			if(e.target.id == 'enh__login_outer'){
+			if(e.target.id === 'enh__login_outer'){
 				loginWnd.hide();
 			}
 		});

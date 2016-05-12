@@ -5,7 +5,7 @@ export default () => {
 
 	for(let key in database){
 		let item = database[key];
-		if(!item.category || item.category == 'modifier'){
+		if(!item.category || item.category === 'modifier'){
 			continue;
 		}
 		if(!out[item.category]){

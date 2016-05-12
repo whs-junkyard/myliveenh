@@ -1,5 +1,5 @@
 import JSZip from 'jszip';
-import Database from './database';
+import database from './database';
 
 const MANIFEST = 'set.json';
 
@@ -59,7 +59,7 @@ export default class EmoteLoader{
 	}
 
 	async copyFiles(){
-		let database = await Database();
+		let db = await database();
 
 		let emotePromise = [];
 		for(let emote in this.manifest.emotes){
@@ -75,7 +75,7 @@ export default class EmoteLoader{
 				let blob = new Blob([buffer]);
 
 				return new Promise((resolve, reject) => {
-					let tx = database.transaction(['emotesFile'], 'readwrite');
+					let tx = db.transaction(['emotesFile'], 'readwrite');
 					let request = tx.objectStore('emotesFile').add(blob);
 					request.onsuccess = (e) => {
 						// save the id
@@ -92,7 +92,7 @@ export default class EmoteLoader{
 		await Promise.all(emotePromise);
 
 		await new Promise((resolve, reject) => {
-			let tx = database.transaction(['emotes'], 'readwrite');
+			let tx = db.transaction(['emotes'], 'readwrite');
 			let request = tx.objectStore('emotes').add(this.manifest);
 			request.onsuccess = resolve;
 			request.onerror = reject;
@@ -101,7 +101,7 @@ export default class EmoteLoader{
 	}
 }
 
-self.onmessage = function (msg){
+self.onmessage = function(msg){
 	new EmoteLoader(msg.data).load().then(() => {
 		postMessage(null);
 	}, (e) => {
@@ -112,4 +112,4 @@ self.onmessage = function (msg){
 			postMessage('Cannot load file. Is the same pack already installed?');
 		}
 	});
-}
+};

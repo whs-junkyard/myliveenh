@@ -1,10 +1,5 @@
 import $ from 'jquery';
-import streamInfo from 'core/streaminfo';
 import plugin from 'core/plugin';
-
-let getFeaturedUser = () => {
-	return $.trim($('.recommend .margin-top-10 div:last').text());
-};
 
 let getThumbnailUrl = () => {
 	let user = $('.recommend .avatar').attr('src').match(/\/([^_\/]+?)_[A-Za-z0-9]+\.jpg$/)[1];

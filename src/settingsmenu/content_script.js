@@ -20,5 +20,5 @@ plugin('settingsmenu', () => {
 		.appendTo(target);
 }, {
 	resume_angular: true,
-	always_load: true
+	always_load: true,
 });

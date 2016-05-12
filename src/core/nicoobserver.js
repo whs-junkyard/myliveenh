@@ -3,7 +3,7 @@ export default class NicoObserver{
 		if(this.getTarget() === null){
 			return;
 		}
-		
+
 		this.observer = new MutationObserver(this.onMutated.bind(this));
 		this.observer.observe(this.getTarget(), {
 			childList: true,
@@ -15,7 +15,7 @@ export default class NicoObserver{
 	}
 
 	onMutated(records){
-		for(var record of records){
+		for(let record of records){
 			this.processMutation(record);
 		}
 	}

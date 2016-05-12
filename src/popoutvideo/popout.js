@@ -4,7 +4,7 @@ const JWPLAYER = 'http://ssl.p.jwpcdn.com/player/v/7.2.4/jwplayer.js';
 
 let getStreamInfo = async function(id){
 	let body = await fetch(`http://mylive.in.th/streams/${id}`, {
-		credentials: 'include'
+		credentials: 'include',
 	}).then((res) => res.text());
 
 	let html = document.implementation.createHTMLDocument();
@@ -16,9 +16,9 @@ let getStreamInfo = async function(id){
 	})[0];
 	return {
 		title: html.title,
-		script: scriptNode.textContent
+		script: scriptNode.textContent,
 	};
-}
+};
 
 document.documentElement.innerHTML = require('./popout.txt');
 

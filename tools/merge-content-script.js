@@ -1,7 +1,7 @@
 const sortOrder = [
 	'document_start',
 	'document_end',
-	'document_idle'
+	'document_idle',
 ];
 
 let getKey = (item) => {
@@ -45,10 +45,10 @@ export default (scripts) => {
 		}
 
 		let result = {
-			"matches": specimen.matches,
-			"js": Array.from(js),
-			"css": Array.from(css),
-			"run_at": specimen.run_at,
+			matches: specimen.matches,
+			js: Array.from(js),
+			css: Array.from(css),
+			run_at: specimen.run_at,
 		};
 
 		if(result.js.length === 0){

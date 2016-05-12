@@ -1,6 +1,6 @@
 export default async function(id){
 	let body = await fetch(`http://mylive.in.th/streams/${id}`, {
-		credentials: 'include'
+		credentials: 'include',
 	}).then((res) => res.text());
 
 	let html = document.implementation.createHTMLDocument().documentElement;
@@ -9,13 +9,13 @@ export default async function(id){
 	let rtmp, hls, poster;
 	try{
 		rtmp = body.match(/(rtmp:\/\/[^"]+)/i)[0];
-	}catch(e){}
+	}catch(e){/* continue */}
 	try{
 		hls = body.match(/(http:\/\/stream[^"]+\.m3u8)/i)[0];
-	}catch(e){}
+	}catch(e){/* continue */}
 	try{
 		poster = body.match(/image: "([^"]+)"/i)[1];
-	}catch(e){}
+	}catch(e){/* continue */}
 
 	return {
 		rtmp: rtmp,

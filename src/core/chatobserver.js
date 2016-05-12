@@ -3,7 +3,7 @@ export default class ChatObserver{
 		this.observer = new MutationObserver(this.onMutated.bind(this));
 		this.observer.observe(this.getTarget(), {
 			childList: true,
-			subtree: true
+			subtree: true,
 		});
 	}
 
@@ -12,17 +12,17 @@ export default class ChatObserver{
 	}
 
 	onMutated(records){
-		for(var record of records){
+		for(let record of records){
 			this.processMutation(record);
 		}
 	}
 
 	processMutation(record){
-		if(record.type != 'childList' || record.addedNodes.length === 0){
+		if(record.type !== 'childList' || record.addedNodes.length === 0){
 			return;
 		}
 		let node = record.addedNodes[0];
-		if(node.tagName != 'LI' || !node.id.startsWith('log')){
+		if(node.tagName !== 'LI' || !node.id.startsWith('log')){
 			return;
 		}
 		this.processChatNode(node);

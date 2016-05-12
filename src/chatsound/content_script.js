@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import plugin from 'core/plugin';
 import ChatObserver from 'core/chatobserver';
 import Settings from 'settings';

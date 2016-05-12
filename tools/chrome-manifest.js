@@ -11,7 +11,7 @@ let generate = async function(){
 		'name': 'MyLive Enhancements 2',
 		'version': mainManifest.version,
 		'description': mainManifest.description,
-		'minimum_chrome_version': "42",
+		'minimum_chrome_version': '42',
 		'icons': {
 			'128': 'data/icon.png',
 		},
@@ -35,9 +35,9 @@ let generate = async function(){
 		// firefox
 		'applications': {
 			'gecko': {
-				id: 'myliveenh@cupco.de'
-			}
-		}
+				id: 'myliveenh@cupco.de',
+			},
+		},
 	};
 
 	for(let manifestPath of subpackages){
