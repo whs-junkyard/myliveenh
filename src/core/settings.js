@@ -163,7 +163,12 @@ class SettingsPage{
 
 		for(let item of donate){
 			let row = $('<tr></tr>');
-			$('<td />').text(item.name).appendTo(row);
+			if(item.link){
+				let td = $('<td />').appendTo(row);
+				$('<a target="_blank" />').attr('href', item.link).text(item.name).appendTo(td);
+			}else{
+				$('<td />').text(item.name).appendTo(row);
+			}
 
 			if(item.value === null){
 				$('<td />').text('').appendTo(row);
