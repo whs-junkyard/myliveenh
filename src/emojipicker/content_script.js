@@ -26,7 +26,7 @@ plugin('emojipicker', () => {
 				.attr('ng-click', `pane=${paneID}`)
 				.attr('title', category)
 				.text(CATEGORY_ICON[category] || category)
-				.addClass(CATEGORY_ICON[category] ? 'enh__emoji': null)
+				.addClass(CATEGORY_ICON[category] ? 'enh__emoji' : null)
 				.end()
 			.appendTo(root.find('.enh__tab'));
 
@@ -47,5 +47,5 @@ plugin('emojipicker', () => {
 		paneID++;
 	}
 }, {
-	resume_angular: true
+	resume_angular: true,
 });

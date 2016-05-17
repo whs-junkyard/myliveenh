@@ -1,6 +1,6 @@
 import injectScript from 'core/injectscript';
 
-export let EMOTE_BASE = `http://s.mylive.in.th/asset/emo/{}.png`;
+export let EMOTE_BASE = 'http://s.mylive.in.th/asset/emo/{}.png';
 
 export default () => {
 	if(window.__enh_emotelist_promise){
@@ -16,7 +16,7 @@ window.postMessage({
 		`);
 
 		let event = (e) => {
-			if(e.source != window){
+			if(e.source !== window){
 				return;
 			}
 

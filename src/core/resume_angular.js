@@ -8,4 +8,4 @@ export default function(){
 	if(window.socket && window.socket.connected){
 		window.socket.emit('connect');
 	}`);
-};
+}

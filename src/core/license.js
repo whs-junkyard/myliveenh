@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css';
+import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css'; // eslint-disable-line no-unused-vars
 
 $('License').each(function(){
 	let licenseName = this.getAttribute('name');

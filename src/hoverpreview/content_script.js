@@ -35,15 +35,15 @@ plugin('hoverpreview', async function(){
 					.appendTo(item.find('.cover'));
 
 				let settings = {
-						file: stream.rtmp,
-						image: coverImage.attr('src'),
-						width: width,
-						height: height,
-						autostart: true,
-						controls: false,
-						rtmp: {
-							bufferlength: 2
-						}
+					file: stream.rtmp,
+					image: coverImage.attr('src'),
+					width: width,
+					height: height,
+					autostart: true,
+					controls: false,
+					rtmp: {
+						bufferlength: 2,
+					},
 				};
 
 				injectScript(`(function(){

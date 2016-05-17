@@ -2,7 +2,6 @@ import $ from 'jquery';
 import plugin from 'core/plugin';
 import ChatObserver from 'core/chatobserver';
 import NicoObserver from 'core/nicoobserver';
-import Database from './database';
 import Settings from 'settings';
 
 class Replacer{
@@ -44,7 +43,7 @@ class Replacer{
 
 			return [key, index];
 		})
-			.filter(x => x[1] != -1)
+			.filter(x => x[1] !== -1)
 			.reduce((a, b) => {
 				return a[1] < b[1] ? a : b;
 			}, [null, Number.MAX_VALUE]);
@@ -54,7 +53,7 @@ class Replacer{
 		}
 
 		// omit the beginning space
-		if(firstEmote[1] == BEGINNING){
+		if(firstEmote[1] === BEGINNING){
 			firstEmote[1] = 0;
 		}else{
 			firstEmote[1] += 1;
@@ -67,7 +66,9 @@ class Replacer{
 		let emoteNode = node.splitText(emote[1]);
 		try{
 			emoteNode.splitText(emote[0].length); // after emote
-		}catch(e){} // if emote is last of the line the split will fail
+		}catch(e){
+			// if emote is last of the line the split will fail
+		}
 
 		let emoteData = this.emotes[emote[0]];
 

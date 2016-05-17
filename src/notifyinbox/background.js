@@ -12,7 +12,7 @@ let metadata = {};
 export let createAlarm = (duration) => {
 	chrome.alarms.create(alarmName, {
 		periodInMinutes: duration,
-		delayInMinutes: duration
+		delayInMinutes: duration,
 	});
 };
 
@@ -55,7 +55,7 @@ export let loadInbox = async function(){
 				}),
 				requireInteraction: true,
 			},
-			function(id){
+			(id) => {
 				metadata[id] = true;
 			}
 		);
@@ -91,7 +91,7 @@ chrome.runtime.onInstalled.addListener(setAlarm);
 chrome.runtime.onStartup.addListener(setAlarm);
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-	if(alarm.name != alarmName){
+	if(alarm.name !== alarmName){
 		return;
 	}
 

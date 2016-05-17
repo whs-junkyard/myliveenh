@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import ChatObserver from 'core/chatobserver';
-import injectScript from 'core/injectscript';
 import plugin from 'core/plugin';
 import emoteList, {EMOTE_BASE} from 'core/emotelist';
 

@@ -37,30 +37,31 @@ window.addEventListener('message', (e) => {
 		}
 	}).on('keyup', (e) => {
 		switch(e.which){
-		case 13: // enter
-			break;
-		case 38: // up
-			historyPtr--;
+			case 13: // enter
+				break;
+			case 38: // up
+				historyPtr--;
 
-			if(historyPtr < 0){
-				historyPtr = 0;
+				if(historyPtr < 0){
+					historyPtr = 0;
+				}
+
+				updateInput();
+				break;
+			case 40:{ // down
+				historyPtr++;
+				let max = history.length - 1;
+
+				if(historyPtr > max){
+					historyPtr = max;
+				}
+
+				updateInput();
+				break;
 			}
-
-			updateInput();
-			break;
-		case 40: // down
-			historyPtr++;
-			let max = history.length - 1;
-
-			if(historyPtr > max){
-				historyPtr = max;
-			}
-
-			updateInput();
-			break;
-		default:
-			historyPtr = history.length;
-			break;
+			default:
+				historyPtr = history.length;
+				break;
 		}
 	});
 });

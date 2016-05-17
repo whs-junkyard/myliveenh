@@ -1,7 +1,7 @@
 import Settings from 'settings';
 import resume from 'core/resume_angular';
 
-if(!window['plugin_loaded']){
+if(!window.plugin_loaded){
 	window.plugin_loaded = [];
 	window.angular_count = 0;
 }
@@ -29,10 +29,10 @@ export default (plugin, cb, options) => {
 
 	let load = () => {
 		cb();
-		after_load();
+		afterLoad();
 	};
 
-	let after_load = () => {
+	let afterLoad = () => {
 		if(options.resume_angular){
 			window.angular_count--;
 			console.log('[L+] Angular lock-', window.angular_count, plugin);
@@ -42,7 +42,7 @@ export default (plugin, cb, options) => {
 				resume();
 			}
 		}
-	}
+	};
 
 	if(options.always_load){
 		load();
@@ -54,7 +54,7 @@ export default (plugin, cb, options) => {
 			if(settings[plugin]){
 				load();
 			}else{
-				after_load();
+				afterLoad();
 			}
 		});
 	}

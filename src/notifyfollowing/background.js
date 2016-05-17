@@ -13,7 +13,7 @@ let metadata = {};
 export let createAlarm = (duration) => {
 	chrome.alarms.create(alarmName, {
 		periodInMinutes: duration,
-		delayInMinutes: duration
+		delayInMinutes: duration,
 	});
 };
 
@@ -29,10 +29,10 @@ export let loadFollow = async function(){
 				'title': room.title,
 				'message': room.owner,
 				'contextMessage': room.tags.join(', '),
-				'eventTime': room.startstamp*1000,
+				'eventTime': room.startstamp * 1000,
 				isClickable: true,
 			},
-			function(id){
+			(id) => {
 				metadata[id] = `http://mylive.in.th/streams/${room.no}`;
 			}
 		);
@@ -64,7 +64,7 @@ chrome.runtime.onInstalled.addListener(setAlarm);
 chrome.runtime.onStartup.addListener(setAlarm);
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-	if(alarm.name != alarmName){
+	if(alarm.name !== alarmName){
 		return;
 	}
 
@@ -74,7 +74,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 chrome.notifications.onClicked.addListener((id) => {
 	if(metadata[id]){
 		chrome.tabs.create({
-			url: metadata[id]
+			url: metadata[id],
 		});
 		chrome.notifications.clear(id);
 	}

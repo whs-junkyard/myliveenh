@@ -62,7 +62,7 @@ class Settings{
 		this._settings = settings;
 		return new Promise((resolve, reject) => {
 			this.area.set({
-				settings: JSON.stringify(this._settings)
+				settings: JSON.stringify(this._settings),
 			}, () => {
 				if(chrome.runtime.lastError){
 					return reject(chrome.runtime.lastError);

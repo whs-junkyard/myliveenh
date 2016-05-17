@@ -5,7 +5,7 @@ const TARGET = 'mylivechat2.js';
 
 let onMutation = function(records){
 	for(let record of records){
-		if(record.target.tagName == 'BODY'){
+		if(record.target.tagName === 'BODY'){
 			// failsafe
 			observer.disconnect();
 			return;
@@ -13,7 +13,7 @@ let onMutation = function(records){
 
 		for(let children in record.addedNodes){
 			children = record.addedNodes[children];
-			if(children.tagName == 'SCRIPT' && (children.getAttribute('src')||'').indexOf(TARGET) != -1){
+			if(children.tagName === 'SCRIPT' && (children.getAttribute('src') || '').indexOf(TARGET) !== -1){
 				console.log('[L+] mylivechat2 found');
 				observer.disconnect();
 				// this script try to identify angular.bootstrap(null, ['chat']) call
@@ -39,5 +39,5 @@ let onMutation = function(records){
 let observer = new MutationObserver(onMutation);
 observer.observe(document.documentElement, {
 	childList: true,
-	subtree: true
+	subtree: true,
 });

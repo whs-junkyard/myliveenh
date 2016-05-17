@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Database from './database';
+import database from './database';
 import EmoteLoader from 'worker!./emoteloader';
 
 export default class EmoteSettings{
@@ -49,8 +49,8 @@ export default class EmoteSettings{
 			.appendTo(this.emoteList);
 
 		let self = this;
-		let database = await Database();
-		let tx = database.transaction(['emotes', 'emotesFile']);
+		let db = await database();
+		let tx = db.transaction(['emotes', 'emotesFile']);
 
 		let request = tx.objectStore('emotes').getAll();
 		request.onsuccess = (e) => {
@@ -108,9 +108,9 @@ export default class EmoteSettings{
 	}
 
 	async removeEmotePack(name){
-		let database = await Database();
+		let db = await database();
 		return new Promise((resolve, reject) => {
-			let tx = database.transaction(['emotes', 'emotesFile'], 'readwrite');
+			let tx = db.transaction(['emotes', 'emotesFile'], 'readwrite');
 			let store = tx.objectStore('emotes');
 
 			let request = store.get(name);

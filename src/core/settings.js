@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css';
+import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css'; // eslint-disable-line no-unused-vars
 import Settings from 'settings';
 import EmoteSettings from 'emotepack/emotesettings';
 
@@ -91,7 +91,7 @@ class SettingsPage{
 		let row = $('<div class="option" />');
 		let label = $('<label class="topcoat-switch" />');
 		label.prepend('<div class="topcoat-switch__toggle" />');
-		let checkbox = $('<input type="checkbox" class="topcoat-switch__input" />')
+		$('<input type="checkbox" class="topcoat-switch__input" />')
 			.prependTo(label);
 		label.appendTo(row);
 		$('<span class="label" />').text(name).appendTo(row);
@@ -100,7 +100,7 @@ class SettingsPage{
 	}
 
 	createInput(props){
-		if(props.type == 'boolean'){
+		if(props.type === 'boolean'){
 			return this.createCheckbox(props.label);
 		}
 
@@ -115,7 +115,7 @@ class SettingsPage{
 			.prependTo(label);
 
 		const validProps = ['min', 'max', 'pattern', 'step'];
-		for(var prop of validProps){
+		for(let prop of validProps){
 			if(props[prop] !== undefined){
 				input.attr(prop, props[prop]);
 			}
@@ -145,11 +145,11 @@ class SettingsPage{
 	async save(){
 		let settings = await Settings.get();
 		for(let [key, field] of this.options){
-			if(field.attr('type') == 'checkbox'){
+			if(field.attr('type') === 'checkbox'){
 				settings[key] = field.prop('checked');
 			}else{
 				settings[key] = field.val();
-				if(field.attr('type') == 'number'){
+				if(field.attr('type') === 'number'){
 					settings[key] = parseFloat(settings[key], 10);
 				}
 			}
@@ -163,7 +163,12 @@ class SettingsPage{
 
 		for(let item of donate){
 			let row = $('<tr></tr>');
-			$('<td />').text(item.name).appendTo(row);
+			if(item.link){
+				let td = $('<td />').appendTo(row);
+				$('<a target="_blank" />').attr('href', item.link).text(item.name).appendTo(td);
+			}else{
+				$('<td />').text(item.name).appendTo(row);
+			}
 
 			if(item.value === null){
 				$('<td />').text('').appendTo(row);
