@@ -69,4 +69,8 @@ document.getElementById(${JSON.stringify(this.__enh_hoverpreview_id)}).remove();
 				delete this.__enh_hoverpreview_id;
 			}
 		});
+
+	$(window).on('blur', () => {
+		$('.thumb').trigger('mouseleave');
+	});
 });
