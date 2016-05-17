@@ -8,12 +8,17 @@ if(!window['plugin_loaded']){
 
 export default (plugin, cb, options) => {
 	options = options || {};
+	let id = plugin;
 
-	if(window.plugin_loaded[plugin]){
+	if(options.id){
+		id = options.id;
+	}
+
+	if(window.plugin_loaded[id]){
 		return;
 	}
 
-	window.plugin_loaded[plugin] = true;
+	window.plugin_loaded[id] = true;
 	if(options.resume_angular){
 		if(window.angular_count === 0){
 			console.time('stop_angular');
