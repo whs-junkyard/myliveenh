@@ -82,6 +82,9 @@ let generate = async function(){
 	let dataFiles = await glob('data/*');
 	manifest.web_accessible_resources = manifest.web_accessible_resources.concat(dataFiles);
 
+	// dedupe permissions
+	manifest.permissions = new Set(manifest.permissions);
+
 	return manifest;
 };
 
