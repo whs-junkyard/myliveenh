@@ -3,12 +3,18 @@
 - [Download on Web Store](https://chrome.google.com/webstore/detail/mylive-enhancements/ccfgikjibmnofldagnilnppfpefdekok)
 - [Talk to us on MyLive Talk Facebook group](https://www.facebook.com/groups/MyLiveTalk/)
 
+## Generating release
+
+Use `gulp release` to do a full build and generate release.zip.
+
+Make sure the old build folder are removed first, because otherwise contents inside will be copied to the zip.
+
 ## Gulp targets
 
 - default: build for development
 - watch: auto compile files on changes. Does not include files used in settings page
 - release: build, compress and zip release. Cleaning the build directory (`rm -rf build`) before running this is highly recommended.
-- build-emoji-db: update <src/emojipicker/emoji.json>
+- build-emoji-db: update src/emojipicker/emoji.json
 
 ## Developing new plugins
 
