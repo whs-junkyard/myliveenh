@@ -44,16 +44,18 @@ const webpackConfig = {
 			{
 				test: /\.txt$/,
 				loader: 'raw',
-			}
-		]
+			},
+		],
 	},
 	resolve: {
 		root: [
-			path.resolve(path.join(__dirname, 'src'))
+			path.resolve(path.join(__dirname, 'src')),
 		],
 	},
-	plugins: [],
-	postcss: postcssConfig
+	plugins: [
+		new webpackModule.optimize.OccurrenceOrderPlugin(),
+	],
+	postcss: postcssConfig,
 };
 
 gulp.task('default', ['generate-chrome-manifest', 'copy', 'copy-modules', 'build', 'build-settings', 'build-license']);
@@ -88,7 +90,7 @@ gulp.task('generate-background', (cb) => {
 gulp.task('build-background', ['generate-background'], () => {
 	let config = deepcopy(webpackConfig);
 	config.output = {
-		filename: 'background.js'
+		filename: 'background.js',
 	};
 
 	return gulp.src(path.join(dest, 'background.js'))
