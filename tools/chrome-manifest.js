@@ -44,6 +44,14 @@ let generate = async function(){
 		let subpackage = require(manifestPath);
 		let srcRoot = path.relative(path.join(__dirname, '..', 'src'), path.dirname(manifestPath));
 
+		if(subpackage.warn_moz){
+			if(process.env.MOZ){
+				continue;
+			}else{
+				console.warn(`*** Module ${subpackage.name} is not compatible with Firefox! Build with MOZ=true to skip`);
+			}
+		}
+
 		if(subpackage.permissions){
 			manifest.permissions = manifest.permissions.concat(subpackage.permissions);
 		}

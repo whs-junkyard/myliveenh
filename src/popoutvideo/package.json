@@ -4,6 +4,7 @@
 	"description": "แสดงปุ่มดีด Player ออก",
 	"category": "Stream",
 	"default_enabled": true,
+	"warn_moz": true,
 	"content_scripts": [
 		{
 			"matches": ["http://mylive.in.th/streams/*"],

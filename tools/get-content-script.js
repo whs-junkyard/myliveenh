@@ -7,6 +7,11 @@ let generate = async function(){
 
 	for(let manifestPath of subpackages){
 		let subpackage = require(manifestPath);
+
+		if(process.env.MOZ && subpackage.warn_moz){
+			continue;
+		}
+
 		let srcRoot = path.relative(path.join(__dirname, '..'), path.dirname(manifestPath));
 
 		if(subpackage.content_scripts){

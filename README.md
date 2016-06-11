@@ -7,6 +7,8 @@
 
 Use `gulp release` to do a full build and generate release.zip.
 
+Export `MOZ=true` to disable modules that are incompatible with Firefox.
+
 Make sure the old build folder are removed first, because otherwise contents inside will be copied to the zip.
 
 ## Gulp targets
