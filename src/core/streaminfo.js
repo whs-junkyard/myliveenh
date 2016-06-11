@@ -1,10 +1,8 @@
-export default async function(id){
-	let body = await fetch(`http://mylive.in.th/streams/${id}`, {
-		credentials: 'include',
-	}).then((res) => res.text());
+import htmlXhr from './htmlxhr';
 
-	let html = document.implementation.createHTMLDocument().documentElement;
-	html.innerHTML = body;
+export default async function(id){
+	let html = await htmlXhr('GET', `http://mylive.in.th/streams/${id}`);
+	let body = html.documentElement.innerHTML;
 
 	let rtmp, hls, poster;
 	try{

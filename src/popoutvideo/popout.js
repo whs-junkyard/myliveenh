@@ -1,14 +1,10 @@
 import injectScript from 'core/injectscript';
+import htmlXhr from 'core/htmlxhr';
 
 const JWPLAYER = 'http://ssl.p.jwpcdn.com/player/v/7.2.4/jwplayer.js';
 
 let getStreamInfo = async function(id){
-	let body = await fetch(`http://mylive.in.th/streams/${id}`, {
-		credentials: 'include',
-	}).then((res) => res.text());
-
-	let html = document.implementation.createHTMLDocument();
-	html.documentElement.innerHTML = body;
+	let html = await htmlXhr('GET', `http://mylive.in.th/streams/${id}`);
 
 	let scriptNode = Array.from(html.documentElement.getElementsByTagName('SCRIPT')).filter((node) => {
 		return !node.src &&
