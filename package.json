@@ -1,6 +1,6 @@
 {
   "name": "myliveenh",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "license": "Apache-2.0",
   "description": "Enhancements to MyLive.in.th",
   "repository": {
@@ -39,7 +39,7 @@
     "postcss-nesting": "^2.3.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
-    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
+    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#2246c79",
     "vinyl-named": "^1.1.0",
     "webpack": "^1.13.1",
     "webpack-stream": "^3.2.0",
