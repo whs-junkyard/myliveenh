@@ -10,7 +10,7 @@ clean(){
 	rm -r release-*.zip || true
 }
 hash(){
-	find build -name \*.js -execdir shasum -a 512 \{\} +
+	shasum -a 512 `find build -name \*.js | sort`
 }
 
 echo Running first build
