@@ -10,7 +10,7 @@ clean(){
 	rm -r release-*.zip || true
 }
 hash(){
-	shasum -a 512 `find build | sort`
+	shasum -a 512 `find build -type f | sort`
 }
 
 echo Running first build
