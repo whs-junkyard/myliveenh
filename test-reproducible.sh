@@ -42,8 +42,8 @@ hash > /tmp/mylivenh-actual
 cd ../../
 rm -r build2
 
-if [ `cat /tmp/myliveenh-expected` != `cat /tmp/mylivenh-actual` ]; then
-	diff /tmp/myliveenh-expected /tmp/mylivenh-actual
+diff /tmp/myliveenh-expected /tmp/mylivenh-actual
+if [ "$?" != "0" ]; then
 	echo Test failed
 	exit 1
 fi
