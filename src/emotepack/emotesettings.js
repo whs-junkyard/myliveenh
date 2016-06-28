@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import database from './database';
-import EmoteLoader from 'worker!./emoteloader';
+import EmoteLoader from 'worker?name=emoteloader.js!./emoteloader';
 
 export default class EmoteSettings{
 	constructor(target){
