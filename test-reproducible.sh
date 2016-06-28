@@ -15,6 +15,7 @@ hash(){
 
 echo Running first build
 clean
+gulp release-src
 gulp release
 hash > /tmp/myliveenh-expected
 

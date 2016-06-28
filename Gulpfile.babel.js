@@ -261,7 +261,7 @@ gulp.task('release-src', (cb) => {
 	});
 });
 
-gulp.task('release', ['default', 'compress-js', 'release-src'], () => {
+gulp.task('release', ['default', 'compress-js'], () => {
 	console.log('*** Make sure release folder is cleared, otherwise removed artifacts could be still present');
 
 	let config = 'chrome';
