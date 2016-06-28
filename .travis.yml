@@ -1,6 +1,7 @@
 branches:
   only:
     - mylive2
+    - /^v[0-9]/
 language: node_js
 node_js:
 - node
