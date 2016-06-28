@@ -1,4 +1,5 @@
 import path from 'path';
+import childProcess from 'child_process';
 
 import gulp from 'gulp';
 import webpackModule from 'webpack';
@@ -250,8 +251,14 @@ gulp.task('compress-js', ['default'], () => {
 		.pipe(gulp.dest(dest));
 });
 
-gulp.task('release', ['default', 'compress-js'], () => {
+gulp.task('release', ['default', 'compress-js', 'release-src'], () => {
+	let config = 'chrome';
+
+	if(process.env.MOZ){
+		config = 'moz';
+	}
+
 	return gulp.src(path.join(dest, '**/*'))
-		.pipe(zip('release.zip'))
+		.pipe(zip('release-' + config + '.zip'))
 		.pipe(gulp.dest('.'));
 });
