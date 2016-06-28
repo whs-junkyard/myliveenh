@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+set -e
 if [ "$MOZ" = "true" ]; then
 	mv release.zip release-moz.zip
 else
