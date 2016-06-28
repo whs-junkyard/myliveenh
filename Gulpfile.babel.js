@@ -251,7 +251,19 @@ gulp.task('compress-js', ['default'], () => {
 		.pipe(gulp.dest(dest));
 });
 
+gulp.task('release-src', (cb) => {
+	childProcess.exec('tools/prepare-src.sh', {}, (err, stdout, stderr) => {
+		if(err){
+			return cb(err);
+		}
+		console.error(stderr);
+		cb();
+	});
+});
+
 gulp.task('release', ['default', 'compress-js', 'release-src'], () => {
+	console.log('*** Make sure release folder is cleared, otherwise removed artifacts could be still present');
+
 	let config = 'chrome';
 
 	if(process.env.MOZ){
