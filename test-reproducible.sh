@@ -6,7 +6,7 @@ echo Testing reproducible build
 echo
 
 clean(){
-	rm -r build || true
+	rm -r build build2 || true
 	rm -r release-*.zip || true
 }
 hash(){
@@ -27,9 +27,8 @@ echo
 echo Reproducing from packed source...
 echo
 
-rm -r /tmp/myliveenh-test || true
-mkdir /tmp/myliveenh-test
-cd /tmp/myliveenh-test
+mkdir build2
+cd build2
 
 echo Unpacking source
 unzip $SOURCEPATH/source.zip
@@ -38,6 +37,9 @@ echo Installing dependencies
 npm install
 gulp release
 hash > /tmp/mylivenh-actual
+
+cd ../../
+rm -r build2
 
 if [ `cat /tmp/myliveenh-expected` != `cat /tmp/mylivenh-actual` ]; then
 	diff /tmp/myliveenh-expected /tmp/mylivenh-actual
