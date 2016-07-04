@@ -22,8 +22,8 @@ document.documentElement.innerHTML = require('./popout.txt');
 let streamPromise = getStreamInfo(window.location.hash.substr(1));
 
 let player = document.createElement('script');
-player.integrity = JWPLAYER_SRI;
-player.crossorigin = 'anonymous';
+// player.integrity = JWPLAYER_SRI;
+// player.crossorigin = 'anonymous';
 player.setAttribute('src', JWPLAYER);
 player.addEventListener('load', async function(){
 	let result = await streamPromise;
