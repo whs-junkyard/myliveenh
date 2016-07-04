@@ -1,0 +1,21 @@
+{
+	"manifest_version": 2,
+	"name": "MyLive Enhancements 2 Popout",
+	"version": "1.0.0",
+	"permissions": [
+		"webview",
+		"app.window.alwaysOnTop"
+	],
+	"minimum_chrome_version": "44",
+	"icons": {"128":"icon.png"},
+	"app": {
+		"background": {
+			"scripts": ["background.js"]
+		}
+	},
+	"webview": {
+		"partitions": [
+			{"name": "player", "accessible_resources": ["player.html", "popout.css"]}
+		]
+	}
+}
