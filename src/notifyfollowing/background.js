@@ -21,8 +21,10 @@ export let loadFollow = async function(){
 	let following = new Following();
 	let newRooms = await following.get();
 	for(let room of newRooms){
+		let id = room.no.toString();
+		metadata[id] = `http://mylive.in.th/streams/${room.no}`;
 		chrome.notifications.create(
-			null,
+			id,
 			{
 				'type': 'basic',
 				'iconUrl': room.img,
@@ -31,9 +33,6 @@ export let loadFollow = async function(){
 				'contextMessage': room.tags.join(', '),
 				'eventTime': room.startstamp * 1000,
 				isClickable: true,
-			},
-			(id) => {
-				metadata[id] = `http://mylive.in.th/streams/${room.no}`;
 			}
 		);
 	}
