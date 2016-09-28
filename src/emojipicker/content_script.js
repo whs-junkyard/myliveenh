@@ -1,17 +1,6 @@
 import $ from 'jquery';
 import plugin from 'core/plugin';
 
-const CATEGORY_ICON = {
-	'symbols': '✈️',
-	'people': '😃',
-	'nature': '🐻',
-	'food': '🍔',
-	'activity': '⚽',
-	'travel': '✈️',
-	'objects': '💡',
-	'flags': '🎌',
-};
-
 plugin('emojipicker', () => {
 	$('[ng-click="toggleicon()"]')
 		.find('i')
@@ -25,8 +14,8 @@ plugin('emojipicker', () => {
 			.find('a')
 				.attr('ng-click', `pane=${paneID}`)
 				.attr('title', category)
-				.text(CATEGORY_ICON[category] || category)
-				.addClass(CATEGORY_ICON[category] ? 'enh__emoji' : null)
+				.text(emoji[category][0].code)
+				.addClass('enh__emoji')
 				.end()
 			.appendTo(root.find('.enh__tab'));
 
