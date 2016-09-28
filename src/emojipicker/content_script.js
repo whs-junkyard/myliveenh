@@ -2,12 +2,12 @@ import $ from 'jquery';
 import plugin from 'core/plugin';
 
 const CATEGORY_ICON = {
-	'symbols': '🔣',
+	'symbols': '✈️',
 	'people': '😃',
 	'nature': '🐻',
 	'food': '🍔',
 	'activity': '⚽',
-	'travel': '⚽',
+	'travel': '✈️',
 	'objects': '💡',
 	'flags': '🎌',
 };
