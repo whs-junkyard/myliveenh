@@ -10,9 +10,18 @@ export default () => {
 	return window.__enh_emotelist_promise = new Promise((resolve, reject) => {
 		let key = 'enh_core_emotelist_' + Math.random().toString();
 		injectScript(`
-window.postMessage({
-	${JSON.stringify(key)}: emolist
-}, '*');
+(function(){
+	let annotated = (type) => {
+		return (item) => {
+			item.type = type;
+			return item;
+		};
+	};
+	window.postMessage({
+		${JSON.stringify(key)}: emolist.map(annotated('emo'))
+			.concat(emotelist.map(annotated('emote')))
+	}, '*');
+})();
 		`);
 
 		let event = (e) => {
