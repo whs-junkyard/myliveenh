@@ -5,12 +5,13 @@ plugin('emojipicker', () => {
 	$('[ng-click="toggleicon()"]')
 		.find('i')
 			.replaceWith('😃');
+	$('[ng-click="toggleemote()"]').remove();
 	let root = $('.showicon').html(require('./emoji.txt'));
 
 	let emoji = require('./emoji.json');
-	let paneID = 1;
+	let paneID = 2;
 	for(let category in emoji){
-		$('<li><a href="#" ng-click="pane=0" /></li>')
+		$('<li><a href="#" /></li>')
 			.find('a')
 				.attr('ng-click', `pane=${paneID}`)
 				.attr('title', category)
