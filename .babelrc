@@ -1,4 +1,4 @@
 {
-	"presets": ["modern", "stage-1"],
+	"presets": ["modern-browsers", "stage-1"],
 	"plugins": ["transform-runtime"]
 }
