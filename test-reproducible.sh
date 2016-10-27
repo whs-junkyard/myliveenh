@@ -22,6 +22,8 @@ hash > /tmp/myliveenh-expected
 echo Expected hash
 cat /tmp/myliveenh-expected
 
+########################
+
 SOURCEPATH=`pwd`
 
 echo
@@ -42,9 +44,39 @@ hash > /tmp/mylivenh-actual
 cd ../../
 rm -r build2
 
+########################
+
+echo
+echo Reproducing without moz restricted modules
+echo
+
+mkdir build2
+cd build2
+
+echo Unpacking source
+unzip $SOURCEPATH/source.zip
+cd myliveenh
+# remove moz restricted modules
+rm -r src/popoutvideo
+echo Installing dependencies
+npm install
+gulp release
+hash > /tmp/mylivenh-actual2
+
+cd ../../
+rm -r build2
+
+########################
+
 diff /tmp/myliveenh-expected /tmp/mylivenh-actual
 if [ "$?" != "0" ]; then
 	echo Test failed
+	exit 1
+fi
+
+diff /tmp/myliveenh-expected /tmp/mylivenh-actual2
+if [ "$?" != "0" ]; then
+	echo Test failed for MOZ builds
 	exit 1
 fi
 
