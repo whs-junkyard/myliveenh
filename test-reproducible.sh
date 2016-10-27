@@ -46,30 +46,29 @@ rm -r build2
 
 ########################
 
-echo
-echo Reproducing without moz restricted modules
-echo
+if [ ! -z "$MOZ" ]; then
+	echo
+	echo Reproducing without moz restricted modules
+	echo
 
-echo Running first build
-rm -r build
-MOZ=true gulp release
-hash > /tmp/myliveenh-expected-moz
+	mkdir build2
+	cd build2
 
-mkdir build2
-cd build2
+	echo Unpacking source
+	unzip $SOURCEPATH/source.zip
+	cd myliveenh
 
-echo Unpacking source
-unzip $SOURCEPATH/source.zip
-cd myliveenh
-# remove moz restricted modules
-rm -r src/popoutvideo
-echo Installing dependencies
-npm install
-gulp release
-hash > /tmp/mylivenh-actual-moz
+	# remove moz restricted modules
+	rm -r src/popoutvideo
 
-cd ../../
-rm -r build2
+	echo Installing dependencies
+	npm install
+	gulp release
+	hash > /tmp/mylivenh-actual-moz
+
+	cd ../../
+	rm -r build2
+fi
 
 ########################
 
@@ -79,10 +78,12 @@ if [ "$?" != "0" ]; then
 	exit 1
 fi
 
-diff /tmp/myliveenh-expected-moz /tmp/mylivenh-actual-moz
-if [ "$?" != "0" ]; then
-	echo Test failed for MOZ builds
-	exit 1
+if [ ! -z "$MOZ" ]; then
+	diff /tmp/myliveenh-expected /tmp/mylivenh-actual-moz
+	if [ "$?" != "0" ]; then
+		echo Test failed for MOZ builds
+		exit 1
+	fi
 fi
 
 echo
