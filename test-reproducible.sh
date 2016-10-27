@@ -50,6 +50,11 @@ echo
 echo Reproducing without moz restricted modules
 echo
 
+echo Running first build
+rm -r build
+MOZ=true gulp release
+hash > /tmp/myliveenh-expected-moz
+
 mkdir build2
 cd build2
 
@@ -61,7 +66,7 @@ rm -r src/popoutvideo
 echo Installing dependencies
 npm install
 gulp release
-hash > /tmp/mylivenh-actual2
+hash > /tmp/mylivenh-actual-moz
 
 cd ../../
 rm -r build2
@@ -74,7 +79,7 @@ if [ "$?" != "0" ]; then
 	exit 1
 fi
 
-diff /tmp/myliveenh-expected /tmp/mylivenh-actual2
+diff /tmp/myliveenh-expected-moz /tmp/mylivenh-actual-moz
 if [ "$?" != "0" ]; then
 	echo Test failed for MOZ builds
 	exit 1
