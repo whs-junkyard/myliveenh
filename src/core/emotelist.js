@@ -30,7 +30,6 @@ export default () => {
 			}
 
 			if(e.data[key]){
-				console.log(e.data[key]);
 				resolve(e.data[key]);
 				window.removeEventListener('message', event, false);
 			}

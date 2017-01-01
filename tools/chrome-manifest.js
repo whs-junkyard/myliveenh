@@ -70,15 +70,6 @@ let generate = async function(){
 						return path.join(srcRoot, css);
 					});
 				}
-				if(item.stop_angular){
-					manifest.content_scripts = manifest.content_scripts.concat({
-						matches: item.matches,
-						js: ['core/stop_angular.js'],
-						run_at: 'document_start',
-					});
-
-					delete item.stop_angular;
-				}
 				return item;
 			});
 			manifest.content_scripts = manifest.content_scripts.concat(contentScript);

@@ -19,7 +19,7 @@ class EmoteDisplay extends ChatObserver{
 	}
 
 	processChatNode(node){
-		$('.emo', node).each(function(){
+		$('.emo,.emot', node).each(function(){
 			let code = EmoteDisplay.emotes[this.getAttribute('src')];
 			let wrapper = $('<div class="enh__emotedisplay" />')
 				.attr('data-code', code);

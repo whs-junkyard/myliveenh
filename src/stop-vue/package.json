@@ -1,0 +1,13 @@
+{
+	"name": "core_stop_vue",
+	"no_disable": true,
+	"content_scripts": [
+		{
+			"matches": ["http://mylive.in.th/*"],
+			"js": ["content_script.js"],
+			"run_at": "document_start"
+		}
+	],
+
+	"private": true
+}

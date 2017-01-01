@@ -2,7 +2,8 @@ import $ from 'jquery';
 import plugin from 'core/plugin';
 
 plugin('settingsmenu', () => {
-	let target = $('.boxsetup .block');
+	$('<div class="menuc" v-on:click="setup(9995)"><i class="fa fa-fw fa-cog"></i> MyLive Enh</div>').insertBefore('.menuchat [v-if="modtool"]');
+	let target = $('<div class="block" v-show="select==9995" />').appendTo('.usermenu');
 
 	$('<div class="head">MyLive Enhancements</div>')
 		.appendTo(target);

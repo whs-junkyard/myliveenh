@@ -1,6 +1,6 @@
 {
   "name": "myliveenh",
-  "version": "2.9.0",
+  "version": "3.0.0",
   "license": "Apache-2.0",
   "description": "Enhancements to MyLive.in.th",
   "repository": {
@@ -15,14 +15,14 @@
   "devDependencies": {
     "babel-core": "^6.14.0",
     "babel-eslint": "^7.0.0",
-    "babel-loader": "^6.2.5",
+    "babel-loader": "^6.2.10",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-modern-browsers": "^6.0.0",
     "babel-preset-stage-1": "^6.13.0",
     "css-loader": "^0.25.0",
     "deepcopy": "^0.6.3",
     "emojione": "^2.2.6",
-    "eslint": "^3.6.1",
+    "eslint": "^3.12.2",
     "file-loader": "^0.9.0",
     "glob": "^7.1.0",
     "glob-promise": "^1.0.6",
