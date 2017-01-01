@@ -18,8 +18,8 @@ export default () => {
 		};
 	};
 	window.postMessage({
-		${JSON.stringify(key)}: emolist.map(annotated('emo'))
-			.concat(emotelist.map(annotated('emote')))
+		${JSON.stringify(key)}: icons.map(annotated('emo'))
+			.concat(emotes.map(annotated('emote')))
 	}, '*');
 })();
 		`);
@@ -30,6 +30,7 @@ export default () => {
 			}
 
 			if(e.data[key]){
+				console.log(e.data[key]);
 				resolve(e.data[key]);
 				window.removeEventListener('message', event, false);
 			}
