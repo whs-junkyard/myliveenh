@@ -11,7 +11,7 @@ export default class NicoObserver{
 	}
 
 	getTarget(){
-		return document.getElementById('nicochat');
+		return document.getElementById('slideChat');
 	}
 
 	onMutated(records){
