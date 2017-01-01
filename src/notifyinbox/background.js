@@ -101,7 +101,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 chrome.notifications.onClicked.addListener((id) => {
 	if(metadata[id]){
 		chrome.tabs.create({
-			url: 'http://mylive.in.th/inbox',
+			url: 'http://mylive.in.th/cp/inbox',
 		});
 		chrome.notifications.clear(id);
 	}
