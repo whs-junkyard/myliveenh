@@ -13,7 +13,8 @@ window.addEventListener('message', (e) => {
 		return;
 	}
 	if(e.data[${JSON.stringify(key)}]){
-		$('#mlcmt').trigger('change');
+		var evt = new Event('input');
+		document.getElementById('mlcmt').dispatchEvent(evt);
 	}
 }, false);
 	`);
