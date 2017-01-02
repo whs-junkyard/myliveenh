@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import topcoat from 'topcoat/css/topcoat-desktop-dark.min.css'; // eslint-disable-line no-unused-vars
 import Settings from 'settings';
-import EmoteSettings from 'emotepack/emotesettings';
 
 const loader = require.context('../', true, /package\.json$/);
 
@@ -181,5 +180,4 @@ class SettingsPage{
 	}
 }
 
-new EmoteSettings($('#emotes'));
 export default new SettingsPage($('#target'));
